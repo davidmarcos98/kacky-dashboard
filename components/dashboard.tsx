@@ -25,7 +25,7 @@ const requestInsertFinish = async (finishData: any) => {
     return response.json();
 }
 
-export const Dashboard = ({maps, user}: {maps: any, user?: string}) => {
+export const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boolean}) => {
     const [editMode, setEditMode] = useState(false);
     const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
     const mapInput = useRef<HTMLInputElement>(null);
@@ -44,16 +44,13 @@ export const Dashboard = ({maps, user}: {maps: any, user?: string}) => {
             date: `${dateInput?.year}-${dateInput?.month}-${dateInput?.day}`,
             username: user
         }
-        console.log(dateInput)
         if (!newClip.map || !newClip.clip || !newClip.password) {
             setShowWarning(true);
             setWarningMessage('All fields are required');
             return;
         } else {
             // TODO call api to add new clip
-            console.log(newClip)
             let response = await requestInsertFinish(newClip);
-            console.log(response)
             if (response.error) {
                 setShowWarning(true);
                 setWarningMessage(response.error);
@@ -62,20 +59,20 @@ export const Dashboard = ({maps, user}: {maps: any, user?: string}) => {
                 router.refresh()
             }
         }
-        console.log(newClip)
     }
 
-    console.log(maps)
     return (
         <>
-            <Button onPress={() => setEditMode(prev => !prev)}>Edit</Button>
+            {!all && 
+                (<Button onPress={() => setEditMode(prev => !prev)}>Edit</Button>)
+            }
             {editMode && (
                 <Button onPress={onOpen}>Add finish</Button>
             )}
             {!editMode && (
                 <div className="flex flex-wrap inline gap-4 justify-center pt-6">
                     {maps?.map((map: any) => (
-                        <MapCard mapPage={user ? false : true} allMaps key={map.map ? map.map.name : map.name} map={map.map ? map.map : map} clip={map.clip}/>
+                        <MapCard mapPage={user ? false : true} allMaps={all} key={map.map ? map.map.name : map.name} map={map.map ? map.map : map} clip={map.clip}/>
                     ))}
                 </div>
             )}

@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+header {
+    max-width: 100% !important;
+    width: 100% !important;
+}

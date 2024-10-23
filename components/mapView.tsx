@@ -23,11 +23,11 @@ export interface Clip {
   }
 }
 
-export const MapView = ({map, clips}: {map: Map, clips: Clip[]}) => {
+export const MapView = ({map, clips, mapPage=false}: {map: Map, clips: Clip[], mapPage: boolean}) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [currentclip, setCurrentClip] = useState<Clip | null>(null);
 
-  console.log(clips)
+  console.log(mapPage)
 
   return (
     <div className="flex-inline">
@@ -36,14 +36,13 @@ export const MapView = ({map, clips}: {map: Map, clips: Clip[]}) => {
         <span className="text-transparent bg-clip-text bg-gradient-to-r to-neutral-600 from-stone-400">Map #{map.name} - by {map.author}</span>
       </h2>
       <div className="flex w-full p-10">
-        <Card className="w-[50%]" isPressable onPress={onOpen}>
+        <Card className="w-[50%]" isPressable onPress={() => !mapPage ? onOpen() : console.log()}>
           <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl">
             <ModalContent>
               {(onClose) => (
                 <>
                   <ModalHeader className="flex flex-col gap-1">#{map.name} finish by {currentclip?.user.username}</ModalHeader>
                   <ModalBody>
-                    {/* find embed for streamable/etc */}
                     {
                       (currentclip?.clip.includes('twitch.tv/'))
                       ? <TwitchClip className="w-[100%] h-[auto] aspect-video" clip={currentclip?.clip.split('/').at(-1) as string} autoplay muted/>

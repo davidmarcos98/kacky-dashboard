@@ -18,9 +18,9 @@ export interface Map {
 export const MapCard = ({map, clip, mapPage, allMaps}: {map: Map, clip: string, mapPage: boolean, allMaps: boolean}) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const router = useRouter()
- 
+  /* TODO Improve card, show if map has been ever finished, show if it has clip, a la wingo */
   return (
-    <Card className={allMaps ? "lg:w-[18%]" : "lg:w-[32%] md:w-[45%] w-[100%]"} isPressable onPress={() => mapPage ? router.push(`/dashboard/map/${map.name}`) : onOpen()}>
+    <Card className={allMaps ? "lg:w-[18%] w-[25%]" : "lg:w-[32%] md:w-[45%] w-[100%]"} isPressable onPress={() => mapPage ? router.push(`/dashboard/map/${map.name}`) : onOpen()}>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl">
         <ModalContent>
           {(onClose) => (
