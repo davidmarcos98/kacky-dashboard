@@ -25,7 +25,7 @@ const requestInsertFinish = async (finishData: any) => {
     return response.json();
 }
 
-export const Dashboard = ({maps, user}: {maps: any, user: string}) => {
+export const Dashboard = ({maps, user}: {maps: any, user?: string}) => {
     const [editMode, setEditMode] = useState(false);
     const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
     const mapInput = useRef<HTMLInputElement>(null);
@@ -74,7 +74,7 @@ export const Dashboard = ({maps, user}: {maps: any, user: string}) => {
             )}
             {!editMode && (
                 <div className="flex flex-wrap inline gap-4 justify-center pt-6">
-                    {maps?.map((map: { map: Map; }) => (
+                    {maps?.map((map: any) => (
                         <MapCard mapPage={user ? false : true} allMaps key={map.map ? map.map.name : map.name} map={map.map ? map.map : map} clip={map.clip}/>
                     ))}
                 </div>
@@ -88,8 +88,8 @@ export const Dashboard = ({maps, user}: {maps: any, user: string}) => {
                         <TableColumn>Clip</TableColumn>
                     </TableHeader>
                     <TableBody>
-                        {maps?.map((map: { map: { name: boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<AwaitedReactNode> | Key | null | undefined; author: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; }; clip: string | undefined; }) => (
-                            <TableRow key={map.map.name}>
+                        {maps?.map((map: { map: { name: boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<AwaitedReactNode> | Key | null | undefined; author: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; }; clip: string | undefined; }, index: number) => (
+                            <TableRow key={index}>
                                 <TableCell>{map.map.name}</TableCell>
                                 <TableCell>{map.map.author}</TableCell>
                                 <TableCell><a href={map.clip} target="_blank" style={{ textDecoration: "underline" }}>Go to clip</a></TableCell>

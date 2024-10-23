@@ -27,6 +27,7 @@ export const MapCard = ({map, clip, mapPage, allMaps}: {map: Map, clip: string, 
             <>
               <ModalHeader className="flex flex-col gap-1">Clip for {map.name}</ModalHeader>
               <ModalBody>
+                {/* TODO check if it's twitch clip etc */}
                 <TwitchClip className="w-[100%] h-[auto] aspect-video" clip={clip.split('/').at(-1) as string} autoplay muted/>
               </ModalBody>
               <ModalFooter>
@@ -43,7 +44,7 @@ export const MapCard = ({map, clip, mapPage, allMaps}: {map: Map, clip: string, 
       </CardHeader>
       <Image
         className="object-fit"
-        src={map.thumbnail}
+        src={map.thumbnail as string}
         sizes="100,100"
         isZoomed
       />

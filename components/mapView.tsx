@@ -2,11 +2,11 @@
 import {Card, CardFooter, Image, CardHeader} from "@nextui-org/react";
 import {Listbox, ListboxItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 import { TwitchClip } from "react-twitch-embed";
-import { FaCheckCircle } from "react-icons/fa";
-import { FaCircleXmark } from "react-icons/fa6";
 import { useState } from "react";
-import ReactPlayer from "react-player";
+import { default as _ReactPlayer } from 'react-player/lazy';
+import { ReactPlayerProps } from "react-player/types/lib";
 
+const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>;
 export interface Map {
   name: string,
   author: string | null,
