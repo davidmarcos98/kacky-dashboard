@@ -27,6 +27,15 @@ export default async function MapsPage({ params }: { params: { user: string } })
           }
       }
   });
+
+  if (!mapsData) {
+      return (
+          <section className="flex flex-col items-center justify-center gap-4 py-2 md:py-10">
+              <h1 className="text-3xl font-bold">No user with that name</h1>
+              <h1 className="text-xl font-bold">Please contact @socramdavid in discord to get you setup.</h1>
+          </section>
+      )
+  }
   let maps = mapsData?.finishes
 
   return (
