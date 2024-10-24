@@ -94,7 +94,7 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
             }
             {!all ? 
                 (<Button 
-                    className="absolute bottom-3 right-5 z-50"
+                    className="absolute top-3 right-3 z-50"
                     onPress={() => setEditMode(prev => !prev)}>Edit</Button>) :
                 (<Dropdown>
                     <DropdownTrigger>
