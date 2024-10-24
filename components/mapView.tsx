@@ -5,8 +5,12 @@ import { TwitchClip } from "react-twitch-embed";
 import { useState } from "react";
 import { default as _ReactPlayer } from 'react-player/lazy';
 import { ReactPlayerProps } from "react-player/types/lib";
+import { isMobile } from 'react-device-detect';
+import dynamic from 'next/dynamic'
 
 const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>;
+const ClipViewer = dynamic(() => import('@/components/clipViewer'), { ssr: false });
+
 export interface Map {
   name: string,
   author: string | null,
@@ -23,31 +27,24 @@ export interface Clip {
   }
 }
 
-export const MapView = ({map, clips, mapPage=false}: {map: Map, clips: Clip[], mapPage: boolean}) => {
+const MapView = ({map, clips, mapPage=false}: {map: Map, clips: Clip[], mapPage: boolean}) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [currentclip, setCurrentClip] = useState<Clip | null>(null);
 
-  console.log(mapPage)
-
   return (
     <div className="flex-inline">
-
       <h2 className="text-center text-gray-900 text-3xl font-extrabold md:text-5xl lg:text-6xl pt-0">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r to-neutral-600 from-stone-400">Map #{map.name} - by {map.author}</span>
+        <span className="text-transparent bg-clip-text bg-gradient-to-r to-neutral-600 from-stone-400">Map #{map.name} - by {map.author || "unknown"}</span>
       </h2>
-      <div className="flex w-full p-10">
-        <Card className="w-[50%]" isPressable onPress={() => !mapPage ? onOpen() : console.log()}>
+      <div className={`${isMobile ? 'flex-inline' : 'flex'} w-full p-10`}>
+        <Card className={`${isMobile ? 'w-[100%]' : 'w-[50%]'}`} isPressable onPress={() => !mapPage ? onOpen() : console.log()}>
           <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl">
             <ModalContent>
               {(onClose) => (
                 <>
                   <ModalHeader className="flex flex-col gap-1">#{map.name} finish by {currentclip?.user.username}</ModalHeader>
                   <ModalBody>
-                    {
-                      (currentclip?.clip.includes('twitch.tv/'))
-                      ? <TwitchClip className="w-[100%] h-[auto] aspect-video" clip={currentclip?.clip.split('/').at(-1) as string} autoplay muted/>
-                      : <ReactPlayer className="w-[100%] h-[auto] aspect-video" width='100%' height='auto' url={currentclip?.clip} controls autoplay muted/>
-                    }
+                    <ClipViewer clip={currentclip as Clip} />
                   </ModalBody>
                   <ModalFooter>
                     <Button color="primary" onPress={onClose}>
@@ -68,10 +65,10 @@ export const MapView = ({map, clips, mapPage=false}: {map: Map, clips: Clip[], m
             isZoomed
           />
           <CardFooter className="flex items-center justify-between before:bg-black/50 bg-black/30 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 right-1 w-fit shadow-small ml-1 z-10">
-            <p className="text-medium font-bold italic">By {map.author}</p>
+            <p className="text-medium font-bold italic">By {map.author || "unknown"}</p>
           </CardFooter>
         </Card>
-        <div id="clips-list" className="w-[50%] px-3">
+        <div id="clips-list" className={`${isMobile ? 'w-[100%] pt-4' : 'w-[50%] px-3'}`}>
           <h2 className="text-center text-gray-900 text-2xl font-extrabold md:text-3xl lg:text-4xl">
             <span className="text-transparent bg-clip-text bg-gradient-to-r to-stone-500 from-stone-400">Clips</span>
           </h2>
@@ -90,3 +87,5 @@ export const MapView = ({map, clips, mapPage=false}: {map: Map, clips: Clip[], m
     </div>
   );
 };
+
+export default MapView;

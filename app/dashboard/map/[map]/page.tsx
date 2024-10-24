@@ -1,7 +1,10 @@
 import { db } from '@/db/client';
-import { mapsTable, finishesTable } from "@/db/schema";
+import { mapsTable } from "@/db/schema";
 import { eq } from 'drizzle-orm';
-import { MapView, Clip, Map } from "@/components/mapView";
+import { Clip, Map } from "@/components/mapView";
+import dynamic from 'next/dynamic'
+
+const MapView = dynamic(() => import('@/components/mapView'), { ssr: false });
 
 export default async function MapPage({ params }: { params: { map: string } }) {
   let mapData = await db.query.mapsTable.findFirst({
@@ -25,7 +28,7 @@ export default async function MapPage({ params }: { params: { map: string } }) {
   let clips: Clip[] = mapData?.finishes as Clip[];
   
   return (
-      <section className="flex flex-col items-center justify-center gap-4 py-2 md:py-10">
+      <section className="flex flex-col items-center justify-center gap-4 py-3">
         <MapView map={mapData as Map} clips={clips} mapPage={true}/>
       </section>
   );

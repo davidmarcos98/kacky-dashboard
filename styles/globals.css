@@ -6,3 +6,18 @@ header {
     max-width: 100% !important;
     width: 100% !important;
 }
+.mapCardImage {
+    filter: blur(3px);
+    image-rendering: crisp-edges;
+}
+.mapCardImage:hover{
+    -webkit-animation: 0.5s linear forwards reveal;
+    -moz-animation: 0.5s linear forwards reveal;
+    -o-animation: 0.5s linear forwards reveal;
+    animation: 0.5s linear forwards reveal;
+}
+
+@-webkit-keyframes reveal { from { filter:blur(3px); } to { filter:none; }  }
+@-moz-keyframes reveal { from { filter:blur(3px); } to { filter:none; }  }
+@-o-keyframes reveal { from { filter:blur(3px); } to { filter:none; }  }
+@keyframes reveal { from { filter:blur(3px); } to { filter:none; }  }

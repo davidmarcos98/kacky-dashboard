@@ -1,9 +1,11 @@
+import dynamic from 'next/dynamic'
+
 import { db } from '@/db/client';
 import { usersTable } from "@/db/schema";
 import { eq } from 'drizzle-orm';
-import { Dashboard } from "@/components/dashboard";
 import { tv } from "tailwind-variants";
 
+const Dashboard = dynamic(() => import('@/components/dashboard'), { ssr: false });
 const title = tv({
   base: "tracking-tight inline font-semibold",
   variants: {
@@ -72,8 +74,8 @@ export default async function MapsPage({ params }: { params: { user: string } })
   return (
       <section className="flex flex-col items-center justify-center gap-4 py-2 md:py-10">
         <div className="inline-block text-center justify-center max-w-[100vw]">
-          <h1 className={title()}>Maps {params.user ? ` finished by ${params.user}` : ""}</h1>
-          <div className="flex flex-wrap inline gap-4 justify-center pt-6">
+          {/* <h1 className={title()}>Maps {params.user ? ` finished by ${params.user}` : ""}</h1> */}
+          <div className="flex flex-wrap inline gap-4 justify-center">
             <Dashboard maps={maps} user={params.user}/>
           </div>
         </div>

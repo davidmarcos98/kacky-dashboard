@@ -1,6 +1,6 @@
 "use client";
 import { AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useEffect, useRef, useState } from "react";
-import { Map, MapCard } from "./mapCard";
+import { MapCard } from "./mapCard";
 import {
     Table,
     TableHeader,
@@ -12,6 +12,7 @@ import {
 import {DateValue, today, getLocalTimeZone} from "@internationalized/date";
 import {DatePicker, Input, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Snippet} from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import { isMobile } from 'react-device-detect';
 
 
 const requestInsertFinish = async (finishData: any) => {
@@ -25,13 +26,13 @@ const requestInsertFinish = async (finishData: any) => {
     return response.json();
 }
 
-export const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boolean}) => {
+const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boolean}) => {
     const [editMode, setEditMode] = useState(false);
     const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
     const mapInput = useRef<HTMLInputElement>(null);
     const clipInput = useRef<HTMLInputElement>(null);
     const passwordInput = useRef<HTMLInputElement>(null);
-    const [dateInput, setDateInput] = useState<DateValue>();
+    const [dateInput, setDateInput] = useState<DateValue>(today(getLocalTimeZone()));
     const [showWarning, setShowWarning] = useState(false);
     const [warningMessage, setWarningMessage] = useState('');
     const router = useRouter();
@@ -63,16 +64,24 @@ export const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, al
 
     return (
         <>
+            {(isMobile || user) &&
+                <h2 className={`text-center text-gray-900 text-3xl font-extrabold md:text-5xl lg:text-6xl ${isMobile ? 'pt-3' : 'pt-0'}`}>
+                    <span className={`text-transparent bg-clip-text bg-gradient-to-r ${user ? "to-stone-400 from-neutral-500" : "to-indigo-600 from-violet-400"}`}>Maps {user ? ` finished by ${user}` : ""}</span>
+                </h2>
+            }
             {!all && 
-                (<Button onPress={() => setEditMode(prev => !prev)}>Edit</Button>)
+                (<Button 
+                    className="absolute bottom-3 right-5 z-50"
+                    onPress={() => setEditMode(prev => !prev)}>Edit</Button>)
             }
             {editMode && (
                 <Button onPress={onOpen}>Add finish</Button>
             )}
             {!editMode && (
-                <div className="flex flex-wrap inline gap-4 justify-center pt-6">
+                /* <div className="flex flex-wrap inline gap-4 justify-center pt-6"> */
+                <div className={`grid ${all ? "sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-5" : (isMobile ? "grid-cols-1" : (maps.length % 2 == 0 ? "grid-cols-2" : "grid-cols-3"))} gap-5 justify-center pt-6 px-5 pb-20`}>
                     {maps?.map((map: any) => (
-                        <MapCard mapPage={user ? false : true} allMaps={all} key={map.map ? map.map.name : map.name} map={map.map ? map.map : map} clip={map.clip}/>
+                        <MapCard mapPage={user ? false : true} allMaps={all} key={map.map ? map.map.name : map.name} map={map.map ? map.map : map} clip={map.clip} user={user}/>
                     ))}
                 </div>
             )}
@@ -100,26 +109,26 @@ export const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, al
                 <ModalContent>
                 {(onClose) => (
                     <>
-                    <ModalHeader className="flex flex-col gap-1">Add New Finish</ModalHeader>
-                    <ModalBody>
-                        <Input ref={mapInput} label="Map" placeholder="Enter map number" />
-                        <Input ref={clipInput} label="Clip" placeholder="Enter clip URL" />
-                        <DatePicker defaultValue={today(getLocalTimeZone())} value={dateInput} onChange={setDateInput} label="Clip date" className="max-w-[284px]" />
-                        { showWarning && (
-                            <Snippet symbol="" hideCopyButton color="danger" variant="solid">
-                                {warningMessage}
-                            </Snippet>
-                        )}
-                        <Input type="password" ref={passwordInput} label="Password" placeholder="Enter edit password" />
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="danger" variant="light" onPress={onClose}>
-                            Close
-                        </Button>
-                        <Button color="primary" onPress={submitNewclip}>
-                            Submit
-                        </Button>
-                    </ModalFooter>
+                        <ModalHeader className="flex flex-col gap-1">Add New Finish</ModalHeader>
+                        <ModalBody>
+                            <Input ref={mapInput} label="Map" placeholder="Enter map number" />
+                            <Input ref={clipInput} label="Clip" placeholder="Enter clip URL" />
+                            <DatePicker defaultValue={today(getLocalTimeZone())} value={dateInput} onChange={setDateInput} label="Clip date" className="max-w-[284px]" />
+                            { showWarning && (
+                                <Snippet symbol="" hideCopyButton color="danger" variant="solid">
+                                    {warningMessage}
+                                </Snippet>
+                            )}
+                            <Input type="password" ref={passwordInput} label="Password" placeholder="Enter edit password" />
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="danger" variant="light" onPress={onClose}>
+                                Close
+                            </Button>
+                            <Button color="primary" onPress={submitNewclip}>
+                                Submit
+                            </Button>
+                        </ModalFooter>
                     </>
                 )}
                 </ModalContent>
@@ -127,3 +136,5 @@ export const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, al
         </>
         );
 };
+
+export default Dashboard;

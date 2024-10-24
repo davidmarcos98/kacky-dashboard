@@ -9,13 +9,11 @@ import { genSaltSync, hashSync, compare } from 'bcrypt-ts';
 
 export async function POST(req: NextRequest){
     const body = await req.json();
-    console.log(body)
     const user = await db.query.usersTable.findFirst({
         where: eq(usersTable.username, body.username as string)
     });
 
     let match = await compare(body.password, user?.password! as string)
-    console.log(user, match);
 
     if (!match) {
         return NextResponse.json({ error: "Invalid password" }, { status: 401 });
@@ -39,3 +37,4 @@ export async function POST(req: NextRequest){
 
     return NextResponse.json({})
 }
+

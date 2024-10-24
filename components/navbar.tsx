@@ -1,13 +1,18 @@
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link} from "@nextui-org/react";
-import { usePathname } from "next/navigation";
+"use client"
+import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, NavbarMenuToggle, NavbarMenu, NavbarMenuItem} from "@nextui-org/react";
+import { redirect, usePathname } from "next/navigation";
+import { useState } from "react";
 
-export default function Header() {
+
+export default function Header({isMobile}: {isMobile: boolean}) {
     /* TODO add sign up or contact button? */
     /* TODO add search map? */
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
-
+    
     return (
         <Navbar
+            suppressHydrationWarning
             classNames={{
                 item: [
                     "flex",
@@ -25,19 +30,33 @@ export default function Header() {
                     "data-[active=true]:after:rounded-[2px]",
                     "data-[active=true]:after:bg-primary",          
                 ]
-            }}>
-            <NavbarBrand>
-                <p className="font-bold text-inherit">Kacky Dashboard</p>
+            }}
+            onMenuOpenChange={setIsMenuOpen}>
+            {isMobile &&
+                <NavbarMenuToggle
+                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                    className="sm:hidden"
+                />
+            }
+            <NavbarBrand onClick={() => {redirect('/dashboard/maps')}}>
+                <Link href="/dashboard/maps" color="foreground">
+                    Kacky Dashboard
+                </Link>
             </NavbarBrand>
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
+                <NavbarItem isActive={pathname == "/dashboard/maps"}>
+                    <Link href="/dashboard/maps" color={pathname == "/dashboard/maps" ? "primary" : "foreground"}>
+                        Maps
+                    </Link>
+                </NavbarItem>
                 <NavbarItem isActive={pathname == "/leaderboard"}>
                     <Link href="/leaderboard" color={pathname == "/leaderboard" ? "primary" : "foreground"}>
                         Leaderboard
                     </Link>
                 </NavbarItem>
-                <NavbarItem isActive={pathname == "/dashboard/maps"}>
-                    <Link href="/dashboard/maps" color={pathname == "/dashboard/maps" ? "primary" : "foreground"}>
-                        Maps
+                <NavbarItem isActive={pathname == "/About"}>
+                    <Link href="/About" color={pathname == "/About" ? "primary" : "foreground"}>
+                        About
                     </Link>
                 </NavbarItem>
             </NavbarContent>
@@ -51,6 +70,20 @@ export default function Header() {
                 </Button>
                 </NavbarItem> */}
             </NavbarContent>
+            {isMobile &&
+                <NavbarMenu>
+                    <NavbarMenuItem key={1}>
+                        <Link href="/dashboard/maps" color={pathname == "/dashboard/maps" ? "primary" : "foreground"}>
+                            Maps
+                        </Link>
+                    </NavbarMenuItem>
+                    <NavbarMenuItem key={2}>
+                        <Link href="/leaderboard" color={pathname == "/leaderboard" ? "primary" : "foreground"}>
+                            Leaderboard
+                        </Link>
+                    </NavbarMenuItem>
+                </NavbarMenu>
+            }
         </Navbar>
   );
 }

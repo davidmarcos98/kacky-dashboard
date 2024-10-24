@@ -1,4 +1,5 @@
 'use client';
+import dynamic from 'next/dynamic'
 import {
   Table,
   TableHeader,
@@ -9,7 +10,11 @@ import {
 } from "@nextui-org/table";
 import parse from 'html-react-parser';
 
-export default function MapPage({ params }: { params: { map: string } }) {
+
+const Leaderboard = dynamic(() => import('@/components/leaderboard'), { ssr: false });
+
+
+export default function MapPage() {
   let lb = require('./data.json')
   console.log(lb)
   
@@ -22,22 +27,7 @@ export default function MapPage({ params }: { params: { map: string } }) {
           Leaderboard
         </span>
       </h2>
-      <Table className="w-[70%]">
-        <TableHeader>
-          <TableColumn>Player</TableColumn>
-          <TableColumn>Fins</TableColumn>
-          <TableColumn>Avg</TableColumn>
-        </TableHeader>
-        <TableBody>
-          {lb?.map((player: any, index: number) => (
-            <TableRow key={index}>
-              <TableCell className="text-md">{parse(player.nick)}</TableCell>
-              <TableCell>{player.fins}</TableCell>
-              <TableCell>{player.avg}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <Leaderboard data={lb}/>
     </section>
   );
 }
