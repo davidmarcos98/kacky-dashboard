@@ -53,7 +53,7 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
         {/* className='justify-between before:bg-white/10 bg-black/75 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large top-2 left-1/2 transform -translate-x-1/2 w-max shadow-small ml-1 z-10'> */}
         <p
           className="text-3xl text-slate-200 font-bold"
-          style={{ textShadow: "1px 1px 2px black, 0 0 0.4em black, 0 0 0.2em black" }}
+          style={{ textShadow: "1px 1px 2px black, 0 0 0.3em black, 0 0 0.3em black" }}
           >
           <Link href={`/dashboard/map/${map.name}`}>
             #{map.name}

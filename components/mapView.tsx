@@ -30,7 +30,7 @@ const MapView = ({map, clips, mapPage=false}: {map: Map, clips: Clip[], mapPage:
   return (
     <div className="flex-inline">
       <h2 className="text-center text-gray-900 text-3xl font-extrabold md:text-5xl lg:text-6xl pt-0">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r to-neutral-600 from-stone-400">Map #{map.name} - by {map.author || "unknown"}</span>
+        <span className="text-transparent bg-clip-text bg-gradient-to-r to-neutral-600 from-stone-400">#{map.name} - by {map.author || "unknown"}</span>
       </h2>
       <div className={`${isMobile ? 'flex-inline' : 'flex'} w-full p-10`}>
         <Card className={`${isMobile ? 'w-[100%]' : 'w-[50%]'}`} isPressable onPress={() => !mapPage ? onOpen() : console.log()}>
@@ -55,8 +55,8 @@ const MapView = ({map, clips, mapPage=false}: {map: Map, clips: Clip[], mapPage:
             style={{ zIndex: 11 }}
             className='justify-between before:bg-stone-700/10 overflow-hidden py-1 absolute top-1 left-11 transform -translate-x-1/2 w-max ml-1 z-10'>
             <p
-              className="text-3xl text-slate-200 font-bold"
-              style={{ textShadow: "1px 1px 2px black, 0 0 0.4em black, 0 0 0.2em black" }}
+              className="text-5xl text-slate-200 font-bold leading-snug pl-10"
+              style={{ textShadow: "1px 1px 2px black, 0 0 0.3em black, 0 0 0.3em black" }}
               >
               #{map.name}
             </p>

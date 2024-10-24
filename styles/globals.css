@@ -34,6 +34,10 @@ div:has(.cardImage):not(:has(button)):after {
     content: '';
 }
 
+.command > pre {
+    font-weight: bolder;
+}
+
 @-webkit-keyframes reveal { from { filter:blur(3px); } to { filter:none; }  }
 @-moz-keyframes reveal { from { filter:blur(3px); } to { filter:none; }  }
 @-o-keyframes reveal { from { filter:blur(3px); } to { filter:none; }  }

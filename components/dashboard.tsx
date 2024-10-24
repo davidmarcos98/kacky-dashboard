@@ -1,5 +1,5 @@
 "use client";
-import { AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useEffect, useRef, useState } from "react";
+import { AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useEffect, useMemo, useRef, useState } from "react";
 import { MapCard } from "./mapCard";
 import {
     Table,
@@ -10,9 +10,10 @@ import {
     TableCell
   } from "@nextui-org/table";
 import {DateValue, today, getLocalTimeZone} from "@internationalized/date";
-import {DatePicker, Input, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Snippet} from "@nextui-org/react";
+import {DatePicker, Input, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Snippet, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem} from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { isMobile } from 'react-device-detect';
+import type { Selection } from "@nextui-org/react";
 
 
 const requestInsertFinish = async (finishData: any) => {
@@ -36,6 +37,28 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
     const [showWarning, setShowWarning] = useState(false);
     const [warningMessage, setWarningMessage] = useState('');
     const router = useRouter();
+    const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set(["All Maps"]));
+    const [filteredMaps, setFilteredMaps] = useState<any>(maps);
+    const [filterColor, setFilterColor] = useState<"default" | "danger" | "primary" | "secondary" | "success" | "warning" | undefined>("default");
+
+    const selectedValue = useMemo(
+        () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
+        [selectedKeys]
+    );
+
+    useEffect(() => {
+        console.log(selectedValue)
+        if (selectedValue == "All Maps") {
+            setFilteredMaps(maps);
+            setFilterColor("default")
+        } else if (selectedValue == "Finished Maps") {
+            setFilteredMaps(maps.filter((map: any) => map.finishes.length > 0));
+            setFilterColor("success")
+        } else if (selectedValue == "Unfinished Maps") {
+            setFilteredMaps(maps.filter((map: any) => map.finishes.length == 0));
+            setFilterColor("warning")
+        }
+    }, [selectedValue])
 
     const submitNewclip = async () => {
         let newClip = {
@@ -69,10 +92,31 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
                     <span className={`text-transparent bg-clip-text bg-gradient-to-r ${user ? "to-stone-400 from-neutral-500" : "to-indigo-600 from-violet-400"}`}>Maps {user ? ` finished by ${user}` : ""}</span>
                 </h2>
             }
-            {!all && 
+            {!all ? 
                 (<Button 
                     className="absolute bottom-3 right-5 z-50"
-                    onPress={() => setEditMode(prev => !prev)}>Edit</Button>)
+                    onPress={() => setEditMode(prev => !prev)}>Edit</Button>) :
+                (<Dropdown>
+                    <DropdownTrigger>
+                        <Button 
+                            variant="bordered"
+                            color={filterColor}
+                            className="absolute top-4 right-4 z-40"
+                        >
+                            {selectedValue}
+                        </Button>
+                    </DropdownTrigger>
+                    <DropdownMenu
+                        aria-label="Static Actions"
+                        selectionMode="single"
+                        selectedKeys={selectedKeys}
+                        onSelectionChange={setSelectedKeys}
+                    >
+                        <DropdownItem key="All Maps">All Maps</DropdownItem>
+                        <DropdownItem key="Finished Maps">Finished Maps</DropdownItem>
+                        <DropdownItem key="Unfinished Maps">Unfinished Maps</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>)
             }
             {editMode && (
                 <Button onPress={onOpen}>Add finish</Button>
@@ -80,7 +124,7 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
             {!editMode && (
                 /* <div className="flex flex-wrap inline gap-4 justify-center pt-6"> */
                 <div className={`grid ${all ? "sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-5" : (isMobile ? "grid-cols-1" : (maps.length % 2 == 0 ? "grid-cols-2" : "grid-cols-3"))} gap-5 justify-center pt-6 px-5 pb-20`}>
-                    {maps?.map((map: any) => (
+                    {filteredMaps?.map((map: any) => (
                         <MapCard mapPage={user ? false : true} allMaps={all} key={map.map ? map.map.name : map.name} map={map.map ? map.map : map} clip={map.clip} user={user || ''}/>
                     ))}
                 </div>

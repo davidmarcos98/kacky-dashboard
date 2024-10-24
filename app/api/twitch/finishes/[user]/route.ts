@@ -5,14 +5,13 @@ import { eq } from "drizzle-orm";
 import { usersTable } from "@/db/schema";
 import { db } from "@/db/client";
 
-export async function GET(req: NextRequest){
+export async function GET(req: NextRequest, { params }: { params: Promise<{ user: string }> }){
     /* 
-        /addcom !fins $(customapi https://kacky.socr.am/api/twitch/finishes?user=[USER])
+        /addcom !fins $(customapi https://kacky.socr.am/api/twitch/finishes/[USER])
     */
-    const params = req.nextUrl.searchParams;
 
     const user = await db.query.usersTable.findFirst({
-        where: eq(usersTable.username, params.get("user") as string),
+        where: eq(usersTable.username, (await params).user as string),
         with: {
             finishes: {
                 columns: {
@@ -26,5 +25,5 @@ export async function GET(req: NextRequest){
         return NextResponse.json({ error: "No user with that name" }, { status: 401 });
     }
 
-    return new NextResponse(`${params.get("user")} has finished ${user.finishes.length} maps`);
+    return new NextResponse(`${(await params).user} has finished ${user.finishes.length} maps`);
 }

@@ -5,14 +5,13 @@ import { eq, desc } from "drizzle-orm";
 import { finishesTable, mapsTable, usersTable } from "@/db/schema";
 import { db } from "@/db/client";
 
-export async function GET(req: NextRequest){
+export async function GET(req: NextRequest, { params }: { params: Promise<{ user: string }> }){
     /* 
-        /addcom !lastfin $(customapi https://kacky.socr.am/api/twitch/lastFinish?user=[USER])
+        /addcom !lastfin $(customapi https://kacky.socr.am/api/twitch/lastFinish/[USER])
     */
-    const params = req.nextUrl.searchParams;
 
     const user = await db.query.usersTable.findFirst({
-        where: eq(usersTable.username, params.get("user") as string),
+        where: eq(usersTable.username, (await params).user as string),
         with: {
             finishes: {
                 columns: {

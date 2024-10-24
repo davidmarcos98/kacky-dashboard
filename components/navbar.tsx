@@ -19,6 +19,7 @@ export default function Header({isMobile}: {isMobile: boolean}) {
                     "relative",
                     "h-full",
                     "justify-between",
+                    "items-center",
                     "pl-0",
                     "pr-0",
                     "data-[active=true]:after:content-['']",
