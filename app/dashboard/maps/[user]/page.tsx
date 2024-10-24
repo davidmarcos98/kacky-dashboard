@@ -38,6 +38,14 @@ export default async function MapsPage({ params }: { params: { user: string } })
   }
   let maps = mapsData?.finishes
 
+  if (maps.length === 0) {
+      return (
+          <section className="flex flex-col items-center justify-center gap-4 py-2 md:py-10">
+              <h1 className="text-3xl font-bold">No maps finished by {params.user}</h1>
+          </section>
+      )
+  }
+
   return (
       <section className="flex flex-col items-center justify-center gap-4 py-2 md:py-10">
         <div className="inline-block text-center justify-center max-w-[100vw]">

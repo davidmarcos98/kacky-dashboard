@@ -28,7 +28,7 @@ export default function About() {
           send me a message on discord (<a href="https://discordapp.com/users/298826431889145857" target="_blank" className="font-bold">@socramdavid</a>) to setup your user.
         </h4>
         <h4>
-          Non-manual setup is not possible for now. You will receive a user and password with instructions on how to add clips for your new finishes.
+          Non-manual setup is not possible for now. You will receive a user and password with instructions on how to submit clips for your new finishes.
         </h4>
 
         <h2 className="text-2xl font-bold text-center">Chat commands</h2>
