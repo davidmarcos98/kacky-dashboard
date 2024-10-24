@@ -22,6 +22,8 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const router = useRouter()
 
+  const isMapFinished = (map.finishes && map.finishes?.length > 0);
+
   /* TODO Improve card, show if map has been ever finished, show if it has clip, a la wingo */
   /* TODO open on tm.exchange when image click on map page */
   return (
@@ -32,9 +34,7 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">Clip for {map.name}</ModalHeader>
-              <ModalBody>
-                {/* TODO check if it's twitch clip etc */}
-                
+              <ModalBody>                
                 <ClipViewer clip={{clip: clip, user: {username: user}} as Clip} />
               </ModalBody>
               <ModalFooter>
@@ -48,18 +48,24 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
       </Modal>
       <CardHeader
         style={{ zIndex: 11 }}
-        className='justify-between before:bg-white/10 bg-black/75 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large top-2 left-1/2 transform -translate-x-1/2 w-max shadow-small ml-1 z-10'>
-        <p className="text-large font-bold">#{map.name}</p>
+        className='justify-between before:bg-stone-700/10 overflow-hidden py-1 absolute top-1 left-11 transform -translate-x-1/2 w-max ml-1 z-10'>
+        {/* className='justify-between before:bg-white/10 bg-black/75 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large top-2 left-1/2 transform -translate-x-1/2 w-max shadow-small ml-1 z-10'> */}
+        <p
+          className="text-3xl text-slate-200 font-bold drop-shadow-2xl"
+          style={{ textShadow: "1px 1px 2px black, 0 0 1em black, 0 0 0.2em black" }}
+          >
+          #{map.name}
+        </p>
       </CardHeader>
       <Image
-        className={`object-fit ${isMobile ? '' : "mapCardImage"}`}
+        className={`object-fit ${isMobile || !allMaps ? '' : "mapCardImage"}`}
         src={map.thumbnail as string}
         sizes="100,100"
         isZoomed
       />
-      <CardFooter className="justify-between before:bg-black/50 bg-black/40 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+      <CardFooter className={`justify-between before:bg-black/50 ${allMaps ? (isMapFinished ? "bg-green-600/45" : "bg-red-600/45") : "bg-black/40"} border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-2 ${isMobile ? "right-2 w-[50%]" : "w-[calc(100%_-_8px)]" } shadow-small ml-1 z-10`}>
         <p className="flex items-center text-medium font-bold mr-auto ">
-          {(map.finishes && map.finishes?.length > 0) || clip != undefined ? (
+          {isMapFinished || clip != undefined ? (
             <FinishedIcon/>
           ) : <NotFinishedIcon/>}
         </p>

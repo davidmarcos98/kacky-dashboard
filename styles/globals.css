@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    font-family: Raleway, sans-serif;
+}
+
 header {
     max-width: 100% !important;
     width: 100% !important;

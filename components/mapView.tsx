@@ -1,14 +1,10 @@
 "use client"; 
 import {Card, CardFooter, Image, CardHeader} from "@nextui-org/react";
 import {Listbox, ListboxItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
-import { TwitchClip } from "react-twitch-embed";
 import { useState } from "react";
-import { default as _ReactPlayer } from 'react-player/lazy';
-import { ReactPlayerProps } from "react-player/types/lib";
 import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic'
 
-const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>;
 const ClipViewer = dynamic(() => import('@/components/clipViewer'), { ssr: false }) as any;
 
 export interface Map {

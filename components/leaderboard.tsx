@@ -11,22 +11,31 @@ import { isMobile } from 'react-device-detect';
 
 const Leaderboard = ({data}: {data?: any}) => {
   return (
-    <Table className={isMobile ? "w-[90%]" : "w-[70%]"}>
-      <TableHeader>
-        <TableColumn>Player</TableColumn>
-        <TableColumn>Fins</TableColumn>
-        <TableColumn>Avg</TableColumn>
-      </TableHeader>
-      <TableBody>
-        {data?.map((player: any, index: number) => (
-          <TableRow key={index}>
-            <TableCell className="text-md">{parse(player.nick)}</TableCell>
-            <TableCell>{player.fins}</TableCell>
-            <TableCell>{player.avg}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <>
+      {isMobile &&
+        <h2 className="text-center text-gray-900 text-3xl font-extrabold md:text-5xl lg:text-6xl pt-8">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r to-indigo-600 from-violet-400">
+            Leaderboard
+          </span>
+        </h2>
+      }
+      <Table className={isMobile ? "w-[90%] pt-3" : "w-[70%] pt-6"}>
+        <TableHeader>
+          <TableColumn>Player</TableColumn>
+          <TableColumn>Fins</TableColumn>
+          <TableColumn>Avg</TableColumn>
+        </TableHeader>
+        <TableBody>
+          {data?.map((player: any, index: number) => (
+            <TableRow key={index}>
+              <TableCell className="text-md">{parse(player.nick)}</TableCell>
+              <TableCell>{player.fins}</TableCell>
+              <TableCell>{player.avg}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
   );
 };
 

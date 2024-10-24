@@ -65,7 +65,7 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
     return (
         <>
             {(isMobile || user) &&
-                <h2 className={`text-center text-gray-900 text-3xl font-extrabold md:text-5xl lg:text-6xl ${isMobile ? 'pt-3' : 'pt-0'}`}>
+                <h2 className={`text-center text-gray-900 text-3xl font-extrabold md:text-5xl lg:text-6xl ${isMobile ? 'pt-3' : 'pt-0'} w-full`}>
                     <span className={`text-transparent bg-clip-text bg-gradient-to-r ${user ? "to-stone-400 from-neutral-500" : "to-indigo-600 from-violet-400"}`}>Maps {user ? ` finished by ${user}` : ""}</span>
                 </h2>
             }
@@ -79,7 +79,7 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
             )}
             {!editMode && (
                 /* <div className="flex flex-wrap inline gap-4 justify-center pt-6"> */
-                <div className={`grid ${all ? "sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-5" : (isMobile ? "grid-cols-1" : (maps.length % 2 == 0 ? "grid-cols-2" : "grid-cols-3"))} gap-5 justify-center pt-6 px-5 pb-20`}>
+                <div className={`grid ${all ? "sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-5" : (isMobile ? "grid-cols-1" : (maps.length % 2 == 0 ? "grid-cols-2" : "grid-cols-3"))} gap-5 justify-center pt-6 px-5 pb-20`}>
                     {maps?.map((map: any) => (
                         <MapCard mapPage={user ? false : true} allMaps={all} key={map.map ? map.map.name : map.name} map={map.map ? map.map : map} clip={map.clip} user={user || ''}/>
                     ))}

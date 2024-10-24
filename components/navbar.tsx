@@ -28,7 +28,8 @@ export default function Header({isMobile}: {isMobile: boolean}) {
                     "data-[active=true]:after:right-0",
                     "data-[active=true]:after:h-[2px]",
                     "data-[active=true]:after:rounded-[2px]",
-                    "data-[active=true]:after:bg-primary",          
+                    "data-[active=true]:after:bg-primary", 
+                    "font-semibold"         
                 ]
             }}
             onMenuOpenChange={setIsMenuOpen}>
@@ -39,7 +40,7 @@ export default function Header({isMobile}: {isMobile: boolean}) {
                 />
             }
             <NavbarBrand onClick={() => {redirect('/dashboard/maps')}}>
-                <Link href="/dashboard/maps" color="foreground">
+                <Link href="/dashboard/maps" color="foreground" className="font-bold">
                     Kacky Dashboard
                 </Link>
             </NavbarBrand>
