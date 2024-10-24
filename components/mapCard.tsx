@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { isMobile } from 'react-device-detect';
 import { Clip } from "./clipViewer";
 import dynamic from 'next/dynamic'
+import Link from "next/link";
 
 const ClipViewer = dynamic(() => import('@/components/clipViewer'), { ssr: false }) as any;
 
@@ -47,18 +48,20 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
         </ModalContent>
       </Modal>
       <CardHeader
-        style={{ zIndex: 11 }}
+        style={{ zIndex: 20 }}
         className='justify-between before:bg-stone-700/10 overflow-hidden py-1 absolute top-1 left-11 transform -translate-x-1/2 w-max ml-1 z-10'>
         {/* className='justify-between before:bg-white/10 bg-black/75 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large top-2 left-1/2 transform -translate-x-1/2 w-max shadow-small ml-1 z-10'> */}
         <p
-          className="text-3xl text-slate-200 font-bold drop-shadow-2xl"
-          style={{ textShadow: "1px 1px 2px black, 0 0 1em black, 0 0 0.2em black" }}
+          className="text-3xl text-slate-200 font-bold"
+          style={{ textShadow: "1px 1px 2px black, 0 0 0.4em black, 0 0 0.2em black" }}
           >
-          #{map.name}
+          <Link href={`/dashboard/map/${map.name}`}>
+            #{map.name}
+          </Link>
         </p>
       </CardHeader>
       <Image
-        className={`object-fit ${isMobile || !allMaps ? '' : "mapCardImage"}`}
+        className={`object-fit ${user ? "cardImage" : ""} ${isMobile || !allMaps ? '' : "mapCardImage"}`}
         src={map.thumbnail as string}
         sizes="100,100"
         isZoomed

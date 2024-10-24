@@ -51,8 +51,15 @@ const MapView = ({map, clips, mapPage=false}: {map: Map, clips: Clip[], mapPage:
               )}
             </ModalContent>
           </Modal>
-          <CardHeader style={{ zIndex: 11 }} className='justify-between before:bg-white/10 bg-black/75 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large top-2 left-1/2 transform -translate-x-1/2 w-max shadow-small ml-1 z-10'>
-            <p className="text-medium font-bold">{map.name}</p>
+          <CardHeader
+            style={{ zIndex: 11 }}
+            className='justify-between before:bg-stone-700/10 overflow-hidden py-1 absolute top-1 left-11 transform -translate-x-1/2 w-max ml-1 z-10'>
+            <p
+              className="text-3xl text-slate-200 font-bold"
+              style={{ textShadow: "1px 1px 2px black, 0 0 0.4em black, 0 0 0.2em black" }}
+              >
+              #{map.name}
+            </p>
           </CardHeader>
           <Image
             className="object-fit"

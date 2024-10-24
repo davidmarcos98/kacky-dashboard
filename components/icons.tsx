@@ -235,7 +235,7 @@ export const NotFinishedIcon = (props: any) => (
         fill: "#fff",
         stroke: "#fff",
         strokeMiterlimit: 10,
-        strokeWidth: 50,
+        strokeWidth: 40,
       }}
     />
   </svg>
