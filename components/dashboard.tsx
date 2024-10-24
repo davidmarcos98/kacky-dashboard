@@ -81,7 +81,7 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
                 /* <div className="flex flex-wrap inline gap-4 justify-center pt-6"> */
                 <div className={`grid ${all ? "sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-5" : (isMobile ? "grid-cols-1" : (maps.length % 2 == 0 ? "grid-cols-2" : "grid-cols-3"))} gap-5 justify-center pt-6 px-5 pb-20`}>
                     {maps?.map((map: any) => (
-                        <MapCard mapPage={user ? false : true} allMaps={all} key={map.map ? map.map.name : map.name} map={map.map ? map.map : map} clip={map.clip} user={user}/>
+                        <MapCard mapPage={user ? false : true} allMaps={all} key={map.map ? map.map.name : map.name} map={map.map ? map.map : map} clip={map.clip} user={user || ''}/>
                     ))}
                 </div>
             )}

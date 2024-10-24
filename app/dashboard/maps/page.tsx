@@ -3,7 +3,7 @@ import { db } from '@/db/client';
 import { mapsTable } from "@/db/schema";
 import { asc } from "drizzle-orm";
 
-const Dashboard = dynamic(() => import('@/components/dashboard'), { ssr: false });
+const Dashboard = dynamic(() => import('@/components/dashboard'), { ssr: false }) as any;
 
 export default async function MapsPage() {
   

@@ -9,7 +9,7 @@ import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic'
 
 const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>;
-const ClipViewer = dynamic(() => import('@/components/clipViewer'), { ssr: false });
+const ClipViewer = dynamic(() => import('@/components/clipViewer'), { ssr: false }) as any;
 
 export interface Map {
   name: string,

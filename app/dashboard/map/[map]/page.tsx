@@ -4,7 +4,7 @@ import { eq } from 'drizzle-orm';
 import { Clip, Map } from "@/components/mapView";
 import dynamic from 'next/dynamic'
 
-const MapView = dynamic(() => import('@/components/mapView'), { ssr: false });
+const MapView = dynamic(() => import('@/components/mapView'), { ssr: false }) as any;
 
 export default async function MapPage({ params }: { params: { map: string } }) {
   let mapData = await db.query.mapsTable.findFirst({

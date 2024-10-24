@@ -8,7 +8,7 @@ import Footer from "@/components/footer";
 import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic'
 
-const Header = dynamic(() => import('@/components/navbar'), { ssr: false });
+const Header = dynamic(() => import('@/components/navbar'), { ssr: false }) as any;
 
 
 export default function Document({ children }: { children: React.ReactNode }) {

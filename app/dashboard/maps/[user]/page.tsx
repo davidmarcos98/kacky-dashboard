@@ -5,7 +5,7 @@ import { usersTable } from "@/db/schema";
 import { eq } from 'drizzle-orm';
 import { tv } from "tailwind-variants";
 
-const Dashboard = dynamic(() => import('@/components/dashboard'), { ssr: false });
+const Dashboard = dynamic(() => import('@/components/dashboard'), { ssr: false }) as any;
 const title = tv({
   base: "tracking-tight inline font-semibold",
   variants: {

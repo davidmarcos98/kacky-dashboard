@@ -7,7 +7,7 @@ import { isMobile } from 'react-device-detect';
 import { Clip } from "./clipViewer";
 import dynamic from 'next/dynamic'
 
-const ClipViewer = dynamic(() => import('@/components/clipViewer'), { ssr: false });
+const ClipViewer = dynamic(() => import('@/components/clipViewer'), { ssr: false }) as any;
 
 export interface Map {
   name: string,

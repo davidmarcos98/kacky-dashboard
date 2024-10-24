@@ -11,7 +11,7 @@ import {
 import parse from 'html-react-parser';
 
 
-const Leaderboard = dynamic(() => import('@/components/leaderboard'), { ssr: false });
+const Leaderboard = dynamic(() => import('@/components/leaderboard'), { ssr: false }) as any;
 
 
 export default function MapPage() {
