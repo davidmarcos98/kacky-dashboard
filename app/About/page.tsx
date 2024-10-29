@@ -54,7 +54,7 @@ export default function About() {
         <h2 style={{ marginTop: "-10px"}}>⚠️&nbsp; Replace {'<USER>'} with the username used in the dashboard url</h2>
         <Snippet color='danger' symbol="#" className="w-fit command">{'!addcom !fins $(customapi https://kacky.socr.am/api/twitch/finishes/<USER>)'}</Snippet>
         <Snippet color='success' symbol="#" className="w-fit command">{'!command !fins $(customapi.https://kacky.socr.am/api/twitch/finishes/<USER>)'}</Snippet>
-        <h3 className="font-extrabold">3. Add clip from chat ⚠️ FOSSABOT ONLY ⚠️</h3>
+        <h3 className="font-extrabold">4. Add clip from chat ⚠️ FOSSABOT ONLY ⚠️</h3>
         <h2 style={{ marginTop: "-10px"}}>This will send the request to add the clip to your dashboard and automatically match your twitch username to your dashboard's username</h2>
         <Snippet color='danger' symbol="#" className="w-fit command">{'!addcom !lastfin $(customapi https://kacky.socr.am/api/twitch/addFinish?map=$(1)&clip=$(2))'}</Snippet>
       </div>
