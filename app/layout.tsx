@@ -8,6 +8,7 @@ import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic'
 
 const Header = dynamic(() => import('@/components/navbar'), { ssr: false }) as any;
+const SnippetComp = dynamic(() => import('@/components/snippet'), { ssr: false }) as any;
 
 export default function Document({ children }: { children: React.ReactNode }) {
 
@@ -25,6 +26,7 @@ export default function Document({ children }: { children: React.ReactNode }) {
         )}
       >
         <Header isMobile={isMobile}/>
+        <SnippetComp isMobile={isMobile}/>
         <Providers>
             {children}
         </Providers>

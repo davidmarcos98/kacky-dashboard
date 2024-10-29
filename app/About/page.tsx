@@ -7,7 +7,7 @@ export default function About() {
       <div className="grid grid-columns-1 gap-4 w-[100%]">
         <h2 className="text-2xl font-bold text-center" style={{ marginTop: "15px" }}>About</h2>
         <h4>
-          This website doesn't use any cookies at all, and no personally identifiable information is retrieved or stored. Anonymized analytics information (device OS, browser, country of origin) is sent to a self-hosted server for traffic analytics purposes.
+          This website doesn't use any cookies at all, and no personally identifiable information is retrieved or stored. Anonymized analytics information (device OS, browser, country of origin) is sent <b>only</b> to a self-hosted server for traffic analytics purposes.
           &nbsp;
           <a
             href="https://umami.is/docs/faq"
@@ -20,6 +20,9 @@ export default function About() {
 
         <h4>
           Twitch embed is used to display clips on the website, and Twitch's privacy policy applies. Some cookies may be used by Twitch itself.
+        </h4>
+        <h4>
+          This website is made by just myself on my free time, so any feedback or bug reports are welcome. You can reach me on discord (<a href="https://discordapp.com/users/298826431889145857" target="_blank" className="font-bold underline">@socramdavid</a>).
         </h4>
 
         <h2 className="text-2xl font-bold text-center">How to use</h2>
@@ -41,16 +44,19 @@ export default function About() {
           You can use these commands to show your latest finish, the number of finishes you have, and to get a clip for a specific
         </h4>
         <h3 className="font-extrabold">1. Get a clip for a specific map</h3>
-        <Snippet color='danger' symbol="#" className="w-fit command">/addcom !clip $(customapi https://kacky.socr.am/api/twitch/clip/$(1))</Snippet>
-        <Snippet color='success' symbol="#" className="w-fit command">/command add !clip $(customapi.https://kacky.socr.am/api/twitch/clip/$(1))</Snippet>
+        <Snippet color='danger' symbol="#" className="w-fit command">!addcom !clip $(customapi https://kacky.socr.am/api/twitch/clip/$(1))</Snippet>
+        <Snippet color='success' symbol="#" className="w-fit command">!command add !clip $(customapi.https://kacky.socr.am/api/twitch/clip/$(1))</Snippet>
         <h3 className="font-extrabold">2. Get last finish for user</h3>
         <h2 style={{ marginTop: "-10px"}}>⚠️&nbsp; Replace {'<USER>'} with the username used in the dashboard url</h2>
-        <Snippet color='danger' symbol="#" className="w-fit command">{'/addcom !lastfin $(customapi https://kacky.socr.am/api/twitch/lastFinish/<USER>)'}</Snippet>
-        <Snippet color='success' symbol="#" className="w-fit command">{'/command add !lastfin $(customapi.https://kacky.socr.am/api/twitch/lastFinish/<USER>)'}</Snippet>
+        <Snippet color='danger' symbol="#" className="w-fit command">{'!addcom !lastfin $(customapi https://kacky.socr.am/api/twitch/lastFinish/<USER>)'}</Snippet>
+        <Snippet color='success' symbol="#" className="w-fit command">{'!command add !lastfin $(customapi.https://kacky.socr.am/api/twitch/lastFinish/<USER>)'}</Snippet>
         <h3 className="font-extrabold">3. Get number of finishes for user</h3>
         <h2 style={{ marginTop: "-10px"}}>⚠️&nbsp; Replace {'<USER>'} with the username used in the dashboard url</h2>
-        <Snippet color='danger' symbol="#" className="w-fit command">{'/addcom !fins $(customapi https://kacky.socr.am/api/twitch/finishes/<USER>)'}</Snippet>
-        <Snippet color='success' symbol="#" className="w-fit command">{'/command !fins $(customapi.https://kacky.socr.am/api/twitch/finishes/<USER>)'}</Snippet>
+        <Snippet color='danger' symbol="#" className="w-fit command">{'!addcom !fins $(customapi https://kacky.socr.am/api/twitch/finishes/<USER>)'}</Snippet>
+        <Snippet color='success' symbol="#" className="w-fit command">{'!command !fins $(customapi.https://kacky.socr.am/api/twitch/finishes/<USER>)'}</Snippet>
+        <h3 className="font-extrabold">3. Add clip from chat ⚠️ FOSSABOT ONLY ⚠️</h3>
+        <h2 style={{ marginTop: "-10px"}}>This will send the request to add the clip to your dashboard and automatically match your twitch username to your dashboard's username</h2>
+        <Snippet color='danger' symbol="#" className="w-fit command">{'!addcom !lastfin $(customapi https://kacky.socr.am/api/twitch/addFinish?map=$(1)&clip=$(2))'}</Snippet>
       </div>
     </section>
   );

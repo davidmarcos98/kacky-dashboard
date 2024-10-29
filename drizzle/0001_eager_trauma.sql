@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "twitch" varchar(255) DEFAULT '';

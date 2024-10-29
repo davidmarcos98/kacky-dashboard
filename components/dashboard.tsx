@@ -27,6 +27,17 @@ const requestInsertFinish = async (finishData: any) => {
     return response.json();
 }
 
+const requestDeleteFinish = async (deleteData: any) => {
+    const response = await fetch('/api/finish', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(deleteData)
+    });
+    return response.json();
+}
+
 const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boolean}) => {
     const [editMode, setEditMode] = useState(false);
     const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
@@ -37,6 +48,8 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
     const [showWarning, setShowWarning] = useState(false);
     const [warningMessage, setWarningMessage] = useState('');
     const router = useRouter();
+    const [modalMode, setModalMode] = useState("add");
+    const [deleteMapInfo, setDeleteMapInfo] = useState<any>({});
     const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set(["All Maps"]));
     const [filteredMaps, setFilteredMaps] = useState<any>(maps);
     const [filterColor, setFilterColor] = useState<"default" | "danger" | "primary" | "secondary" | "success" | "warning" | undefined>("default");
@@ -85,6 +98,31 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
         }
     }
 
+    const deleteClip = async () => {
+        // TODO call api to delete clip
+        let deleteInfo = {
+            map: deleteMapInfo.map.name,
+            clip: deleteMapInfo.clip,
+            password: passwordInput.current?.value,
+            username: user
+        }
+        if (!deleteInfo.password) {
+            setShowWarning(true);
+            setWarningMessage('All fields are required');
+            return;
+        } else {
+            // TODO call api to add new clip
+            let response = await requestDeleteFinish(deleteInfo);
+            if (response.error) {
+                setShowWarning(true);
+                setWarningMessage(response.error);
+            } else {
+                onClose();
+                router.refresh()
+            }
+        }
+    }
+
     return (
         <>
             {(isMobile || user) &&
@@ -119,7 +157,11 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
                 </Dropdown>)
             }
             {editMode && (
-                <Button onPress={onOpen}>Add finish</Button>
+                <Button onPress={() => {
+                    setModalMode("add");
+                    setShowWarning(false);
+                    onOpen();
+                }}>Add finish</Button>
             )}
             {!editMode && (
                 /* <div className="flex flex-wrap inline gap-4 justify-center pt-6"> */
@@ -141,6 +183,7 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
                         <TableColumn>Map</TableColumn>
                         <TableColumn>Author</TableColumn>
                         <TableColumn>Clip</TableColumn>
+                        <TableColumn>{""}</TableColumn>
                     </TableHeader>
                     <TableBody>
                         {maps?.map((map: { map: { name: boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<AwaitedReactNode> | Key | null | undefined; author: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; }; clip: string | undefined; }, index: number) => (
@@ -148,15 +191,44 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
                                 <TableCell>{map.map.name}</TableCell>
                                 <TableCell>{map.map.author}</TableCell>
                                 <TableCell><a href={map.clip} target="_blank" style={{ textDecoration: "underline" }}>Go to clip</a></TableCell>
+                                <TableCell><Button onPress={() => {
+                                    setModalMode("delete");
+                                    setDeleteMapInfo(map);
+                                    setShowWarning(false);
+                                    onOpen();
+                                }}>Remove</Button></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             )}
+            
             {/* TODO move to own component bla */}
             <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false} isKeyboardDismissDisabled={true}>
                 <ModalContent>
                 {(onClose) => (
+                    modalMode == "delete" ? (
+                        <>
+                            <ModalHeader className="flex flex-col gap-1">Delete Finish</ModalHeader>
+                            <ModalBody>
+                                <p>Are you sure you want to delete this finish?</p>
+                                <Input type="password" ref={passwordInput} label="Password" placeholder="Enter edit password" />
+                                { showWarning && (
+                                    <Snippet symbol="" hideCopyButton color="danger" variant="solid">
+                                        {warningMessage}
+                                    </Snippet>
+                                )}
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="danger" variant="light" onPress={onClose}>
+                                    Cancel
+                                </Button>
+                                <Button color="primary" onPress={deleteClip}>
+                                    Confirm
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    ) :
                     <>
                         <ModalHeader className="flex flex-col gap-1">Add New Finish</ModalHeader>
                         <ModalBody>

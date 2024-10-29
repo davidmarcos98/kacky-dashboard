@@ -34,7 +34,7 @@ const MapView = ({map, clips, mapPage=false}: {map: Map, clips: Clip[], mapPage:
       </h2>
       <div className={`${isMobile ? 'flex-inline' : 'flex'} w-full p-10`}>
         <Card className={`${isMobile ? 'w-[100%]' : 'w-[50%]'}`} isPressable onPress={() => !mapPage ? onOpen() : console.log()}>
-          <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl">
+          <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="5xl">
             <ModalContent>
               {(onClose) => (
                 <>

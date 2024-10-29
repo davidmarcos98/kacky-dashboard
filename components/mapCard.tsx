@@ -30,7 +30,7 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
   return (
     /* <Card className={allMaps ? "lg:w-[18%] w-[25%]" : "lg:w-[32%] md:w-[45%] w-[100%]"} isPressable onPress={() => mapPage ? router.push(`/dashboard/map/${map.name}`) : onOpen()}> */
     <Card className={"w-[100%] max-w-[500px]"} isPressable onPress={() => mapPage ? router.push(`/dashboard/map/${map.name}`) : onOpen()}>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="5xl">
         <ModalContent>
           {(onClose) => (
             <>

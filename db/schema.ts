@@ -15,6 +15,7 @@ export const usersTable = pgTable("users", {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
     username: varchar({ length: 255 }).notNull().unique(),
     password: varchar({ length: 255 }).notNull(),
+    twitch: varchar({ length: 255 }).default(""),
 });
 export const usersRelations = relations(usersTable, ({ many }) => ({
     finishes: many(finishesTable),
