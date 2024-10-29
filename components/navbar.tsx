@@ -1,15 +1,15 @@
 "use client"
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, NavbarMenuToggle, NavbarMenu, NavbarMenuItem} from "@nextui-org/react";
-import { redirect, usePathname } from "next/navigation";
+import {User, Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem, DropdownSection} from "@nextui-org/react";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { ChevronDown } from "./icons";
 
-
-export default function Header({isMobile}: {isMobile: boolean}) {
-    /* TODO add sign up or contact button? */
+export default function Header({isMobile, players}: {isMobile: boolean, players: any[]}) {
     /* TODO add search map? */
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
-    
+    const router = useRouter();
+
     return (
         <Navbar
             suppressHydrationWarning
@@ -56,6 +56,43 @@ export default function Header({isMobile}: {isMobile: boolean}) {
                         Leaderboard
                     </Link>
                 </NavbarItem>
+                <Dropdown>
+                    <NavbarItem>
+                        <DropdownTrigger>
+                        <Button
+                            disableRipple
+                            className="p-0 bg-transparent data-[hover=true]:bg-transparent"
+                            endContent={<ChevronDown fill="currentColor" size={16} />}
+                            radius="sm"
+                            variant="light"
+                        >
+                            Players
+                        </Button>
+                        </DropdownTrigger>
+                    </NavbarItem>
+                    <DropdownMenu
+                        aria-label="ACME features"
+                        className="w-[340px]"
+                        itemClasses={{
+                        base: "gap-4",
+                        }}
+                    >
+                        <DropdownSection>
+                            { players.map((player, index) => (
+                                <DropdownItem key={index} onClick={() => router.push(`/dashboard/maps/${player.username}`)}>
+                                    <User
+                                        name={player.username}
+                                        className="capitalize"
+                                        avatarProps={{
+                                            src: `/${player.username}.png`,
+                                            size: "sm"
+                                        }}
+                                    />
+                                </DropdownItem>
+                            ))}
+                        </DropdownSection>
+                    </DropdownMenu>
+                </Dropdown>
                 <NavbarItem isActive={pathname == "/About"}>
                     <Link href="/About" color={pathname == "/About" ? "primary" : "foreground"}>
                         About
@@ -63,14 +100,6 @@ export default function Header({isMobile}: {isMobile: boolean}) {
                 </NavbarItem>
             </NavbarContent>
             <NavbarContent justify="end">
-                {/* <NavbarItem className="hidden lg:flex">
-                <Link href="#">Login</Link>
-                </NavbarItem>
-                <NavbarItem>
-                <Button as={Link} color="primary" href="#" variant="flat">
-                    Sign Up
-                </Button>
-                </NavbarItem> */}
             </NavbarContent>
             {isMobile &&
                 <NavbarMenu>
@@ -82,6 +111,11 @@ export default function Header({isMobile}: {isMobile: boolean}) {
                     <NavbarMenuItem key={2}>
                         <Link href="/leaderboard" color={pathname == "/leaderboard" ? "primary" : "foreground"}>
                             Leaderboard
+                        </Link>
+                    </NavbarMenuItem>
+                    <NavbarMenuItem key={3}>
+                        <Link href="/about" color={pathname == "/about" ? "primary" : "foreground"}>
+                            About
                         </Link>
                     </NavbarMenuItem>
                 </NavbarMenu>

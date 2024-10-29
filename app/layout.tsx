@@ -1,4 +1,3 @@
-'use client'
 import clsx from "clsx";
 
 import "@/styles/globals.css";
@@ -6,12 +5,15 @@ import {Providers} from "./providers";
 import Footer from "@/components/footer";
 import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic'
+import {db} from "@/db/client";
 
 const Header = dynamic(() => import('@/components/navbar'), { ssr: false }) as any;
 const SnippetComp = dynamic(() => import('@/components/snippet'), { ssr: false }) as any;
 
-export default function Document({ children }: { children: React.ReactNode }) {
+export default async function Document({ children }: { children: React.ReactNode }) {
 
+  const players = await db.query.usersTable.findMany();
+  
   return (
     <html lang="en" className="dark">
       <head>
@@ -25,7 +27,7 @@ export default function Document({ children }: { children: React.ReactNode }) {
           "min-h-screen bg-background font-sans antialiased flex flex-col",
         )}
       >
-        <Header isMobile={isMobile}/>
+        <Header isMobile={isMobile} players={players} />
         <SnippetComp isMobile={isMobile}/>
         <Providers>
             {children}
