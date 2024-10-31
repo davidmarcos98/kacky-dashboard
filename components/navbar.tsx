@@ -78,12 +78,12 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
                         Maps
                     </Link>
                 </NavbarItem>
-                <NavbarItem isActive={pathname == "/leaderboard"}>
+{/*                 <NavbarItem isActive={pathname == "/leaderboard"}>
                     <Link href="/leaderboard" color={pathname == "/leaderboard" ? "primary" : "foreground"}>
                         Leaderboard
                     </Link>
                 </NavbarItem>
-                <Dropdown>
+ */}                <Dropdown>
                     <NavbarItem>
                         <DropdownTrigger>
                         <Button
@@ -139,11 +139,11 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
                             Maps
                         </Link>
                     </NavbarMenuItem>
-                    <NavbarMenuItem key={2}>
+                    {/* <NavbarMenuItem key={2}>
                         <Link href="/leaderboard" color={pathname == "/leaderboard" ? "primary" : "foreground"}>
                             Leaderboard
                         </Link>
-                    </NavbarMenuItem>
+                    </NavbarMenuItem> */}
                     <NavbarMenuItem key={3}>
                         <Link href="/about" color={pathname == "/about" ? "primary" : "foreground"}>
                             About
