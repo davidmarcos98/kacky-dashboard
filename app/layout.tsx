@@ -2,12 +2,11 @@ import clsx from "clsx";
 
 import "@/styles/globals.css";
 import {Providers} from "./providers";
+import Footer from "@/components/footer";
 import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic'
 
-const Header = dynamic(() => import('@/components/navbar'), { ssr: false }) as any;
-const Footer = dynamic(() => import('@/components/footer'), { ssr: false }) as any;
-const SnippetComp = dynamic(() => import('@/components/snippet'), { ssr: true }) as any;
+const Header = dynamic(() => import('@/components/navbar'), { ssr: true }) as any;
 
 export default async function Document({ children }: { children: React.ReactNode }) {
 
@@ -38,7 +37,6 @@ export default async function Document({ children }: { children: React.ReactNode
         )}
       >
         <Header isMobile={isMobile} players={players} />
-        {/* <SnippetComp isMobile={isMobile}/> */}
         <Providers>
             {children}
         </Providers>
