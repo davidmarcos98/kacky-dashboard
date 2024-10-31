@@ -9,7 +9,7 @@ import { db } from "../../../db/client";
 import axios, { AxiosResponse } from "axios";
 
 
-export async function isStreamerLive(channel: string): Promise<boolean> {
+async function isStreamerLive(channel: string): Promise<boolean> {
     const url: string = `https://www.twitch.tv/${channel}`;
     try {
         const response: AxiosResponse = await axios.get(url);
