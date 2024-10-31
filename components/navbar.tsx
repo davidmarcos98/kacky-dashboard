@@ -111,7 +111,7 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
                                         name={player.username}
                                         className="capitalize"
                                         avatarProps={{
-                                            src: `/${player.username}.png`,
+                                            src: `/${player.username.toLowerCase()}.png`,
                                             size: "sm"
                                         }}
                                     />
