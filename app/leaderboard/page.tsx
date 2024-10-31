@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic'
 
 
-const Leaderboard = dynamic(() => import('@/components/leaderboard'), { ssr: false }) as any;
+const Leaderboard = dynamic(() => import('@/components/leaderboard'), { ssr: true }) as any;
 
 
 export default function MapPage() {

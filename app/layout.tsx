@@ -5,10 +5,9 @@ import {Providers} from "./providers";
 import Footer from "@/components/footer";
 import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic'
-import {db} from "@/db/client";
 
-const Header = dynamic(() => import('@/components/navbar'), { ssr: false }) as any;
-const SnippetComp = dynamic(() => import('@/components/snippet'), { ssr: false }) as any;
+const Header = dynamic(() => import('@/components/navbar'), { ssr: true }) as any;
+const SnippetComp = dynamic(() => import('@/components/snippet'), { ssr: true }) as any;
 
 export default async function Document({ children }: { children: React.ReactNode }) {
 
@@ -17,15 +16,15 @@ export default async function Document({ children }: { children: React.ReactNode
     {username: 'bren', twitch: 'bren_tm2'},
     {username: 'hefest', twitch: 'hefest'},
     {username: 'jxliano', twitch: 'jxliano'},
-    {username: 'Lars_tm', twitch: 'Lars_tm'},
+    {username: 'Lars_tm', twitch: 'socramdavid'},
     {username: 'scrapie', twitch: 'scrapie'},
-    {username: 'spammiej', twitch: 'spammiej'},
+    {username: 'spammiej', twitch: 'socramdavid'},
     {username: 'tekky', twitch: 'tekky'},
-    {username: 'wirtual', twitch: 'wirtual'},
+    {username: 'wirtual', twitch: 'socramdavid'},
   ]
   
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={`dark`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -35,7 +34,7 @@ export default async function Document({ children }: { children: React.ReactNode
       </head>
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased flex flex-col",
+          "min-h-screen bg-background font-sans antialiased flex flex-col font-body",
         )}
       >
         <Header isMobile={isMobile} players={players} />

@@ -1,6 +1,8 @@
 "use client"; 
-import {Card, CardFooter, Image, CardHeader} from "@nextui-org/react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import {Card, CardFooter, CardHeader} from "@nextui-org/card";
+import {Image} from "@nextui-org/image";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/modal";
+import { Button } from "@nextui-org/button";
 import { NotFinishedIcon, FinishedIcon } from "./icons";
 import { useRouter } from "next/navigation";
 import { isMobile } from 'react-device-detect';
@@ -8,7 +10,7 @@ import { Clip } from "./clipViewer";
 import dynamic from 'next/dynamic'
 import Link from "next/link";
 
-const ClipViewer = dynamic(() => import('@/components/clipViewer'), { ssr: false }) as any;
+const ClipViewer = dynamic(() => import('@/components/clipViewer'), { ssr: true }) as any;
 
 export interface Map {
   name: string,
@@ -62,7 +64,7 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
       </CardHeader>
       <Image
         className={`object-fit ${user ? "cardImage" : ""} ${isMobile || !allMaps ? '' : "mapCardImage"}`}
-        src={map.thumbnail as string}
+        src={`/images/${parseInt(map.name) - 75}.jpg`}
         sizes="100,100"
         isZoomed
       />

@@ -1,11 +1,14 @@
 "use client"; 
-import {Card, CardFooter, Image, CardHeader} from "@nextui-org/react";
-import {Listbox, ListboxItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import {Card, CardFooter, CardHeader} from "@nextui-org/card";
+import {Image} from "@nextui-org/image";
+import { Listbox, ListboxItem } from "@nextui-org/listbox";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/modal";
+import { Button } from "@nextui-org/button";
 import { useState } from "react";
 import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic'
 
-const ClipViewer = dynamic(() => import('@/components/clipViewer'), { ssr: false }) as any;
+const ClipViewer = dynamic(() => import('@/components/clipViewer'), { ssr: true }) as any;
 
 export interface Map {
   name: string,

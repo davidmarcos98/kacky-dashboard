@@ -74,5 +74,6 @@ div:has(.cardImage):not(:has(button)):after {
 .playerRow > span {
     display: inline-flex;
     align-items: center;
-    gap: 5px
+    gap: 15px;
+    justify-content: space-between;
 }

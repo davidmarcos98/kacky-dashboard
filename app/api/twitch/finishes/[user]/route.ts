@@ -25,5 +25,9 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ user
         return NextResponse.json({ error: "No user with that name" }, { status: 401 });
     }
 
+    if (!(user.finishes.length > 0)) {
+        return new NextResponse(`${(await params).user} has not finished any map yet Sadge`);
+    }
+
     return new NextResponse(`${(await params).user} has finished ${user.finishes.length} maps`);
 }

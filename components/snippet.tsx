@@ -1,5 +1,5 @@
 "use client"
-import {Snippet} from "@nextui-org/react";
+import {Snippet} from "@nextui-org/snippet";
 
 export default function SnippetComp({isMobile}: {isMobile: boolean}) {
 

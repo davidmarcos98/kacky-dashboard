@@ -1,7 +1,11 @@
 "use client"
-import {User, Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem, DropdownSection} from "@nextui-org/react";
+import {User} from "@nextui-org/user"
+import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem} from "@nextui-org/navbar";
+import {Link} from "@nextui-org/link"
+import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection} from "@nextui-org/dropdown";
+import {Button} from "@nextui-org/button";
 import { redirect, usePathname, useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ChevronDown } from "./icons";
 
 async function isStreamerLive(channel: string): Promise<boolean> {

@@ -1,5 +1,5 @@
 "use client"
-import {Link} from "@nextui-org/react";
+import {Link} from "@nextui-org/link";
 import { usePathname } from "next/navigation";
 
 export default function Footer() {

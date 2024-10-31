@@ -10,10 +10,21 @@ import {
     TableCell
   } from "@nextui-org/table";
 import {DateValue, today, getLocalTimeZone} from "@internationalized/date";
-import {DatePicker, Input, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Snippet, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem} from "@nextui-org/react";
+import {Input} from "@nextui-org/input";
+import {DatePicker} from "@nextui-org/date-picker";
+import {
+    Modal, 
+    ModalContent, 
+    ModalHeader, 
+    ModalBody, 
+    ModalFooter,
+    useDisclosure
+} from "@nextui-org/modal";
+import {Button} from "@nextui-org/button";
+import {Snippet} from "@nextui-org/snippet";
+import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem} from "@nextui-org/dropdown";
 import { useRouter } from "next/navigation";
 import { isMobile } from 'react-device-detect';
-import type { Selection } from "@nextui-org/react";
 
 
 const requestInsertFinish = async (finishData: any) => {
@@ -50,7 +61,7 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
     const router = useRouter();
     const [modalMode, setModalMode] = useState("add");
     const [deleteMapInfo, setDeleteMapInfo] = useState<any>({});
-    const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set(["All Maps"]));
+    const [selectedKeys, setSelectedKeys] = useState<any>(new Set(["All Maps"]));
     const [filteredMaps, setFilteredMaps] = useState<any>(maps);
     const [filterColor, setFilterColor] = useState<"default" | "danger" | "primary" | "secondary" | "success" | "warning" | undefined>("default");
 
@@ -239,7 +250,7 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
                         <ModalBody>
                             <Input ref={mapInput} label="Map" placeholder="Enter map number" />
                             <Input ref={clipInput} label="Clip" placeholder="Enter clip URL" />
-                            <DatePicker defaultValue={today(getLocalTimeZone())} value={dateInput} onChange={setDateInput} label="Clip date" className="max-w-[284px]" />
+                            <DatePicker defaultValue={today(getLocalTimeZone())} value={dateInput as any} onChange={setDateInput as any} label="Clip date" className="max-w-[284px]" />
                             { showWarning && (
                                 <Snippet symbol="" hideCopyButton color="danger" variant="solid">
                                     {warningMessage}
