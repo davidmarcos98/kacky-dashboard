@@ -16,12 +16,13 @@ export async function GET(req: NextRequest){
     const searchParams = req.nextUrl.searchParams;
 
     const user = await db.query.usersTable.findFirst({
-        where: eq(usersTable.twitch, headers.get('x-fossabot-channeldisplayname') as string),
+        where: eq(usersTable.twitch, headers.get('x-fossabot-channeldisplayname')?.toLowerCase() as string),
     });
     const map = await db.query.mapsTable.findFirst({
         where: eq(mapsTable.name, searchParams.get("map") as string),
     });
 
+    console.log(headers, searchParams.get("clip"), searchParams.get("map"))
     if (!user || !map || !headers.get('x-fossabot-validateurl')) {
         return NextResponse.json({ error: "User or map not found" }, { status: 401 });
     }
