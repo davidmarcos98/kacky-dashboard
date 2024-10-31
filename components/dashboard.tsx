@@ -123,11 +123,16 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
         }
     }
 
+    function titleCase(word: string) {
+        return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
+     }
+     
+
     return (
         <>
             {(isMobile || user) &&
                 <h2 className={`text-center text-gray-900 text-3xl font-extrabold md:text-5xl lg:text-6xl ${isMobile ? 'pt-3' : 'pt-0'} w-full`}>
-                    <span className={`text-transparent bg-clip-text bg-gradient-to-r ${user ? "to-stone-400 from-neutral-500" : "to-indigo-600 from-violet-400"}`}>Maps {user ? ` finished by ${user}` : ""}</span>
+                    <span className={`text-transparent bg-clip-text bg-gradient-to-r ${user ? "to-stone-400 from-neutral-500" : "to-indigo-600 from-violet-400"}`}>Maps {user ? ` finished by ${titleCase(user)}` : ""}</span>
                 </h2>
             }
             {!all ? 
@@ -167,7 +172,7 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
                 /* <div className="flex flex-wrap inline gap-4 justify-center pt-6"> */
                 <>
                     {filteredMaps.length == 0 && (
-                        <h1 className="text-2xl font-bold text-center w-full">No maps finished by {user}</h1>
+                        <h1 className="text-2xl font-bold text-center w-full">No maps finished by {titleCase(user)}</h1>
                     )}
                     <div className={`grid ${all ? "sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-5" : (isMobile ? "grid-cols-1" : (maps.length == 1 ? "grid-cols-1" : maps.length % 2 == 0 ? "grid-cols-2" : "grid-cols-3"))} gap-5 justify-center pt-6 px-5 pb-20`}>
                         {filteredMaps?.map((map: any) => (
