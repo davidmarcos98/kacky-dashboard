@@ -57,7 +57,7 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
           className="text-3xl text-slate-200 font-bold"
           style={{ textShadow: "1px 1px 2px black, 0 0 0.3em black, 0 0 0.3em black" }}
           >
-          <Link href={`/dashboard/map/${map.name}`}>
+          <Link prefetch={false} href={`/dashboard/map/${map.name}`}>
             #{map.name}
           </Link>
         </p>
