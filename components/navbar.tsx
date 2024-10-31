@@ -22,6 +22,7 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
     
     const streamersLiveStatus = useMemo(() => {
         let data: any = {}
+        console.log(1)
         for (const player of players) {
             isStreamerLive(player.twitch).then((isLive) => {
                 data[player.username] = isLive;

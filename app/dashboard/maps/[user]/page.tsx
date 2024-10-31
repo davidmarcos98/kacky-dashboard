@@ -4,7 +4,7 @@ import { db } from '@/db/client';
 import { usersTable } from "@/db/schema";
 import { eq } from 'drizzle-orm';
 
-const Dashboard = dynamic(() => import('@/components/dashboard'), { ssr: true }) as any;
+const Dashboard = dynamic(() => import('@/components/dashboard'), { ssr: false }) as any;
 
 export default async function MapsPage({ params }: { params: { user: string } }) {
   
