@@ -1,10 +1,10 @@
 "use client"
 import {User, Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem, DropdownSection} from "@nextui-org/react";
 import { redirect, usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronDown } from "./icons";
 
-export async function isStreamerLive(channel: string): Promise<boolean> {
+async function isStreamerLive(channel: string): Promise<boolean> {
     const response = await fetch(`/api/streamerLive?user=${channel}`);
     return (await response.json()).isLive;
 }
@@ -14,19 +14,20 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
     const router = useRouter();
-    const streamersLiveStatus: any = {}
     const [streamers, setStreamers] = useState<any>({})
-
-    useEffect(() => {
+    
+    const streamersLiveStatus = useMemo(() => {
+        let data: any = {}
         for (const player of players) {
             isStreamerLive(player.twitch).then((isLive) => {
-                streamersLiveStatus[player.username] = isLive;
+                data[player.username] = isLive;
                 if (players.indexOf(player) == players.length - 1) {
                     setStreamers(streamersLiveStatus)
                 }
             })
         }
-    }, [])
+        return data
+    }, [players])
 
     const liveElement = () => {
         return <div className="live-indicator-block">
@@ -115,7 +116,7 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
                                             size: "sm"
                                         }}
                                     />
-                                     {streamers[player.username] &&
+                                     {streamersLiveStatus[player.username] &&
                                         liveElement()
                                     }
                                 </DropdownItem>
