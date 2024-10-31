@@ -27,7 +27,7 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
             })
         }
         return data
-    }, [players])
+    }, [])
 
     const liveElement = () => {
         return <div className="live-indicator-block">
