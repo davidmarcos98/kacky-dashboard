@@ -9,7 +9,7 @@ const Dashboard = dynamic(() => import('@/components/dashboard'), { ssr: false }
 export default async function MapsPage({ params }: { params: { user: string } }) {
   
   let mapsData = await db.query.usersTable.findFirst({
-      where: eq(usersTable.username, params.user as string),
+      where: eq(usersTable.username, params.user.toLowerCase() as string),
       with: {
           finishes: {
               columns: {
