@@ -47,6 +47,7 @@ export default function About() {
           You can use these commands to show your latest finish, the number of finishes you have, and to get a clip for a specific
         </h4>
         <h3 className="font-extrabold">1. Get a clip for a specific map</h3>
+        <h2 className="italic" style={{ marginTop: "-10px"}}>Usage: !clip 349 - returns clip for map 349, if exists</h2>
         <Snippet color='danger' symbol="#" className="w-fit command">!addcom !clip $(customapi https://kacky.socr.am/api/twitch/clip/$(1))</Snippet>
         <Snippet color='success' symbol="#" className="w-fit command">!command add !clip $(customapi.https://kacky.socr.am/api/twitch/clip/$(1))</Snippet>
         <h3 className="font-extrabold">2. Get last finish for user</h3>
@@ -58,6 +59,8 @@ export default function About() {
         <Snippet color='danger' symbol="#" className="w-fit command">{'!addcom !fins $(customapi https://kacky.socr.am/api/twitch/finishes/<USER>)'}</Snippet>
         <Snippet color='success' symbol="#" className="w-fit command">{'!command !fins $(customapi.https://kacky.socr.am/api/twitch/finishes/<USER>)'}</Snippet>
         <h3 className="font-extrabold">4. Add clip from chat ⚠️ FOSSABOT ONLY ⚠️</h3>
+        <h2 className="italic" style={{ marginTop: "-10px"}}>Usage: !addfin map_name clip_url - submits finish clip for the given map</h2>
+        <h2 className="font-extrabold" style={{ marginTop: "-10px"}}>⚠️&nbsp; Make sure to make this command moderator only!</h2>
         <h2 style={{ marginTop: "-10px"}}>This will send the request to add the clip to your dashboard and automatically match your twitch username to your dashboard's username</h2>
         <Snippet color='danger' symbol="#" className="w-fit command">{'!addcom !addfin $(customapi https://kacky.socr.am/api/twitch/addFinish?map=$(1)&clip=$(2))'}</Snippet>
       </div>

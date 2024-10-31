@@ -29,10 +29,11 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
         return data
     }, [])
 
-    const liveElement = () => {
+    const liveElement = (streamer: string) => {
         return <div className="live-indicator-block">
+            
             <span className="live-indicator">
-                <i className="fa fa-circle blink" aria-hidden="true"></i>Live
+                <i className="fa fa-circle blink" aria-hidden="true"></i><a className="z-50 underline" href={`https://twitch.tv/${streamer}`} target="_blank">Live</a>
             </span>
         </div>
     }
@@ -117,7 +118,7 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
                                         }}
                                     />
                                      {streamersLiveStatus[player.username] &&
-                                        liveElement()
+                                        liveElement(player.twitch)
                                     }
                                 </DropdownItem>
                             ))}
