@@ -15,10 +15,10 @@ header {
     image-rendering: crisp-edges;
 }
 .mapCardImage:hover{
-    -webkit-animation: 0.5s linear forwards reveal;
-    -moz-animation: 0.5s linear forwards reveal;
-    -o-animation: 0.5s linear forwards reveal;
-    animation: 0.5s linear forwards reveal;
+    -webkit-animation: 0.3s linear forwards reveal;
+    -moz-animation: 0.3s linear forwards reveal;
+    -o-animation: 0.3s linear forwards reveal;
+    animation: 0.3s linear forwards reveal;
 }
 
 div:has(.cardImage):not(:has(button)):after {
