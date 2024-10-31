@@ -24,7 +24,7 @@ export async function GET(req: NextRequest){
         await db.insert(mapsTable).values({name: map, thumbnail: `https://static.kacky.gg/kk/thumbs/${map-100}.jpg`})
         map++;
     } */
-
+  
     let maps;
     if (searchParams.get("user")) {
         maps = await db.query.usersTable.findMany({

@@ -12,7 +12,17 @@ const SnippetComp = dynamic(() => import('@/components/snippet'), { ssr: false }
 
 export default async function Document({ children }: { children: React.ReactNode }) {
 
-  const players = await db.query.usersTable.findMany();
+  /* const players = await db.query.usersTable.findMany(); */
+  const players = [
+    {username: 'bren', twitch: 'bren_tm2'},
+    {username: 'hefest', twitch: 'hefest'},
+    {username: 'jxliano', twitch: 'jxliano'},
+    {username: 'Lars_tm', twitch: 'Lars_tm'},
+    {username: 'scrapie', twitch: 'scrapie'},
+    {username: 'spammiej', twitch: 'spammiej'},
+    {username: 'tekky', twitch: 'tekky'},
+    {username: 'wirtual', twitch: 'wirtual'},
+  ]
   
   return (
     <html lang="en" className="dark">
@@ -20,6 +30,7 @@ export default async function Document({ children }: { children: React.ReactNode
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" />
         <script defer src="https://umami.socr.am/script.js" data-website-id="923640c3-4530-4e09-8e1f-dc43189fcbbd"></script>
       </head>
       <body

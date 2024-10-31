@@ -1,14 +1,40 @@
 "use client"
 import {User, Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem, DropdownSection} from "@nextui-org/react";
 import { redirect, usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "./icons";
+
+export async function isStreamerLive(channel: string): Promise<boolean> {
+    const response = await fetch(`/api/streamerLive?user=${channel}`);
+    return (await response.json()).isLive;
+}
 
 export default function Header({isMobile, players}: {isMobile: boolean, players: any[]}) {
     /* TODO add search map? */
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
     const router = useRouter();
+    const streamersLiveStatus: any = {}
+    const [streamers, setStreamers] = useState<any>({})
+
+    useEffect(() => {
+        for (const player of players) {
+            isStreamerLive(player.twitch).then((isLive) => {
+                streamersLiveStatus[player.username] = isLive;
+                if (players.indexOf(player) == players.length - 1) {
+                    setStreamers(streamersLiveStatus)
+                }
+            })
+        }
+    }, [])
+
+    const liveElement = () => {
+        return <div className="live-indicator-block">
+            <span className="live-indicator">
+                <i className="fa fa-circle blink" aria-hidden="true"></i>Live
+            </span>
+        </div>
+    }
 
     return (
         <Navbar
@@ -79,7 +105,8 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
                     >
                         <DropdownSection>
                             { players.map((player, index) => (
-                                <DropdownItem key={index} onClick={() => router.push(`/dashboard/maps/${player.username}`)}>
+                                <DropdownItem className="playerRow" key={index} onClick={() => router.push(`/dashboard/maps/${player.username}`)}>
+                                   
                                     <User
                                         name={player.username}
                                         className="capitalize"
@@ -88,6 +115,9 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
                                             size: "sm"
                                         }}
                                     />
+                                     {streamers[player.username] &&
+                                        liveElement()
+                                    }
                                 </DropdownItem>
                             ))}
                         </DropdownSection>

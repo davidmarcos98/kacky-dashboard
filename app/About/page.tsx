@@ -24,6 +24,9 @@ export default function About() {
         <h4>
           This website is made by just myself on my free time, so any feedback or bug reports are welcome. You can reach me on discord (<a href="https://discordapp.com/users/298826431889145857" target="_blank" className="font-bold underline">@socramdavid</a>).
         </h4>
+        <h4>
+          This was highly inspired by <a href="https://kacky.wingobear.com" target="_blank" className="font-bold underline">kacky.wingobear.com</a>, please check it out! Thanks to chico and areyeses for their help with some of the code owo
+        </h4>
 
         <h2 className="text-2xl font-bold text-center">How to use</h2>
         <h4>
