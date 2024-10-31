@@ -100,7 +100,7 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
                     </NavbarItem>
                     <DropdownMenu
                         aria-label="ACME features"
-                        className="w-[340px]"
+                        className="w-[fit]"
                         itemClasses={{
                         base: "gap-4",
                         }}
@@ -117,7 +117,8 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
                                             size: "sm"
                                         }}
                                     />
-                                     {streamersLiveStatus[player.username] &&
+                                    &nbsp;
+                                    {streamersLiveStatus[player.username] &&
                                         liveElement(player.twitch)
                                     }
                                 </DropdownItem>
