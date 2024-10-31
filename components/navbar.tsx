@@ -9,6 +9,7 @@ import { useMemo, useState } from "react";
 import { ChevronDown } from "./icons";
 
 async function isStreamerLive(channel: string): Promise<boolean> {
+    return false
     const response = await fetch(`/api/streamerLive?user=${channel}`);
     return (await response.json()).isLive;
 }
