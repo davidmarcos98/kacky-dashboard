@@ -7,7 +7,7 @@ import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic'
 import '@fontsource-variable/raleway';
 
-const Header = dynamic(() => import('@/components/navbar'), { ssr: false }) as any;
+const Header = dynamic(() => import('@/components/navbar'), { ssr: true }) as any;
 
 export default async function Document({ children }: { children: React.ReactNode }) {
 
