@@ -182,7 +182,7 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
             {!editMode && (
                 /* <div className="flex flex-wrap inline gap-4 justify-center pt-6"> */
                 <>
-                    {filteredMaps.length == 0 && (
+                    {filteredMaps.length == 0 && user && (
                         <h1 className="text-2xl font-bold text-center w-full">No maps finished by {titleCase(user as string)}</h1>
                     )}
                     <div className={`grid ${all ? "sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5" : (isMobile ? "grid-cols-1" : (maps.length == 1 ? "grid-cols-1" : maps.length % 2 == 0 ? "grid-cols-2" : "grid-cols-3"))} gap-5 justify-center pt-6 px-5 pb-20`}>
