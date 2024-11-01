@@ -12,6 +12,10 @@ header {
     width: 100% !important;
 }
 
+.mapImage {
+    filter: brightness(0.3);
+}
+
 .mapCardImage {
     filter: blur(3px) brightness(0.3);
     image-rendering: crisp-edges;
