@@ -66,7 +66,7 @@ const MapView = ({map, clips, mapPage=false}: {map: Map, clips: Clip[], mapPage:
           </CardHeader>
           <Image
             className="object-fit"
-            src={map.thumbnail as string}
+            src={`/images/noimagae.jpg`}
             sizes="100,100"
             isZoomed
           />

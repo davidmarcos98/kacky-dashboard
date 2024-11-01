@@ -64,7 +64,8 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
       </CardHeader>
       <Image
         className={`preload object-fit ${user ? "cardImage" : ""} ${isMobile || !allMaps ? '' : "mapCardImage"}`}
-        src={`/images/${parseInt(map.name) - 75}.webp`}
+        /* src={`/images/${parseInt(map.name) - 75}.webp`} */
+        src={`/images/noimagae.jpg`}
         width="0"
         height="0"
         sizes="100,100"
