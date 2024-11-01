@@ -9,8 +9,8 @@ import { useMemo, useState } from "react";
 import { ChevronDown } from "./icons";
 
 async function isStreamerLive(channel: string): Promise<boolean> {
-    const response = await fetch(`/api/streamerLive?user=${channel}`);
-    return (await response.json()).isLive;
+    const response = await fetch(`https://static-cdn.jtvnw.net/previews-ttv/live_user_${channel}-320x180.jpg`);
+    return (!response.url.includes("404"))
 }
 
 export default function Header({isMobile, players}: {isMobile: boolean, players: any[]}) {
