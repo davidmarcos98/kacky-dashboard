@@ -63,7 +63,7 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
         </p>
       </CardHeader>
       <Image
-        className={`object-fit ${user ? "cardImage" : ""} ${isMobile || !allMaps ? '' : "mapCardImage"}`}
+        className={`preload object-fit ${user ? "cardImage" : ""} ${isMobile || !allMaps ? '' : "mapCardImage"}`}
         src={`/images/${parseInt(map.name) - 75}.webp`}
         width="0"
         height="0"
@@ -71,6 +71,7 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
         style={{ width: '100%', height: '100%' }}
         alt={`Map ${map.name} thumbnail`}
         loading="eager"
+        onMouseOver={(e) => {(e.target as any).classList.remove('preload')}}
       />
       <CardFooter className={`justify-between before:bg-black/50 ${allMaps ? (isMapFinished ? "bg-green-600/45" : "bg-red-600/45") : "bg-black/40"} border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-2 ${isMobile ? "right-2 w-[50%]" : "w-[calc(100%_-_8px)]" } shadow-small ml-1 z-10`}>
         <p className="flex items-center text-medium font-bold mr-auto ">

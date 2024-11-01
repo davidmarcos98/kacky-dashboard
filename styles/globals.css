@@ -19,6 +19,12 @@ header {
     -o-animation: 0.3s linear forwards unreveal;
     animation: 0.3s linear forwards unreveal;
 }
+.mapCardImage.preload {
+    -webkit-animation: none;
+    -moz-animation: none;
+    -o-animation: none;
+    animation: none;
+}
 .mapCardImage:hover{
     -webkit-animation: 0.3s linear forwards reveal;
     -moz-animation: 0.3s linear forwards reveal;

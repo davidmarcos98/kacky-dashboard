@@ -4,7 +4,6 @@ import { mapsTable } from "@/db/schema";
 import { asc } from "drizzle-orm";
 
 const Dashboard = dynamic(() => import('@/components/dashboard'), { ssr: false }) as any;
-/* Add filters (maps with clips, etc) */
 export default async function MapsPage() {
   
   let mapsData = await db.query.mapsTable.findMany({
