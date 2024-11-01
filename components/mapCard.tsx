@@ -1,6 +1,6 @@
 "use client"; 
 import {Card, CardFooter, CardHeader} from "@nextui-org/card";
-import {Image} from "@nextui-org/image";
+import Image from "next/image";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import { NotFinishedIcon, FinishedIcon } from "./icons";
@@ -66,7 +66,9 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
         className={`object-fit ${user ? "cardImage" : ""} ${isMobile || !allMaps ? '' : "mapCardImage"}`}
         src={`/images/${parseInt(map.name) - 75}.jpg`}
         sizes="100,100"
-        isZoomed
+        width={500}
+        height={500}
+        layout="responsive"
       />
       <CardFooter className={`justify-between before:bg-black/50 ${allMaps ? (isMapFinished ? "bg-green-600/45" : "bg-red-600/45") : "bg-black/40"} border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-2 ${isMobile ? "right-2 w-[50%]" : "w-[calc(100%_-_8px)]" } shadow-small ml-1 z-10`}>
         <p className="flex items-center text-medium font-bold mr-auto ">
