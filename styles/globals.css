@@ -12,7 +12,7 @@ header {
     width: 100% !important;
 }
 .mapCardImage {
-    filter: blur(3px);
+    filter: blur(3px) brightness(0.3);
     image-rendering: crisp-edges;
     -webkit-animation: 0.3s linear forwards unreveal;
     -moz-animation: 0.3s linear forwards unreveal;
@@ -49,14 +49,14 @@ div:has(.cardImage):not(:has(button)):after {
     font-weight: bolder;
 }
 
-@-webkit-keyframes reveal { from { filter:blur(3px); scale: 1; } to { filter:none; scale: 1.2; }  }
-@-moz-keyframes reveal { from { filter:blur(3px); scale: 1; } to { filter:none; scale: 1.2; }  }
-@-o-keyframes reveal { from { filter:blur(3px); scale: 1; } to { filter:none; scale: 1.2; }  }
-@keyframes reveal { from { filter:blur(3px); scale: 1; } to { filter:none; scale: 1.2; }  }
-@-webkit-keyframes unreveal { from { filter:none; scale: 1.2; } to { filter:blur(3px); scale: 1.0; }  }
-@-moz-keyframes unreveal { from { filter:none; scale: 1.2; } to { filter:blur(3px); scale: 1.0; }  }
-@-o-keyframes unreveal { from { filter:none; scale: 1.2; } to { filter:blur(3px); scale: 1.0; }  }
-@keyframes unreveal { from { filter:none; scale: 1.2; } to { filter:blur(3px); scale: 1.0; }  }
+@-webkit-keyframes reveal { from { filter:blur(3px) brightness(0.3); scale: 1; } to { filter:brightness(0.3); scale: 1.2; }  }
+@-moz-keyframes reveal { from { filter:blur(3px) brightness(0.3); scale: 1; } to { filter:brightness(0.3); scale: 1.2; }  }
+@-o-keyframes reveal { from { filter:blur(3px) brightness(0.3); scale: 1; } to { filter:brightness(0.3); scale: 1.2; }  }
+@keyframes reveal { from { filter:blur(3px) brightness(0.3); scale: 1; } to { filter:brightness(0.3); scale: 1.2; }  }
+@-webkit-keyframes unreveal { from { filter:brightness(0.3); scale: 1.2; } to { filter:blur(3px) brightness(0.3); scale: 1.0; }  }
+@-moz-keyframes unreveal { from { filter:brightness(0.3); scale: 1.2; } to { filter:blur(3px) brightness(0.3); scale: 1.0; }  }
+@-o-keyframes unreveal { from { filter:brightness(0.3); scale: 1.2; } to { filter:blur(3px) brightness(0.3); scale: 1.0; }  }
+@keyframes unreveal { from { filter:brightness(0.3); scale: 1.2; } to { filter:blur(3px) brightness(0.3); scale: 1.0; }  }
 
 
 
