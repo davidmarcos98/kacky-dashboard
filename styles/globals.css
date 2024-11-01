@@ -14,6 +14,10 @@ header {
 .mapCardImage {
     filter: blur(3px);
     image-rendering: crisp-edges;
+    -webkit-animation: 0.3s linear forwards unreveal;
+    -moz-animation: 0.3s linear forwards unreveal;
+    -o-animation: 0.3s linear forwards unreveal;
+    animation: 0.3s linear forwards unreveal;
 }
 .mapCardImage:hover{
     -webkit-animation: 0.3s linear forwards reveal;
@@ -43,6 +47,10 @@ div:has(.cardImage):not(:has(button)):after {
 @-moz-keyframes reveal { from { filter:blur(3px); } to { filter:none; }  }
 @-o-keyframes reveal { from { filter:blur(3px); } to { filter:none; }  }
 @keyframes reveal { from { filter:blur(3px); } to { filter:none; }  }
+@-webkit-keyframes unreveal { from { filter:none; } to { filter:blur(3px); }  }
+@-moz-keyframes unreveal { from { filter:none; } to { filter:blur(3px); }  }
+@-o-keyframes unreveal { from { filter:none; } to { filter:blur(3px); }  }
+@keyframes unreveal { from { filter:none; } to { filter:blur(3px); }  }
 
 
 

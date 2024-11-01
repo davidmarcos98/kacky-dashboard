@@ -64,11 +64,11 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
       </CardHeader>
       <Image
         className={`object-fit ${user ? "cardImage" : ""} ${isMobile || !allMaps ? '' : "mapCardImage"}`}
-        src={`/images/${parseInt(map.name) - 75}.avif`}
-        sizes="100,100"
-        width={500}
-        height={500}
-        layout="responsive"
+        src={`/images/${parseInt(map.name) - 75}.webp`}
+        width="0"
+        height="0"
+        sizes="100%,100%"
+        style={{ width: '100%', height: 'auto' }}
         alt={`Map ${map.name} thumbnail`}
       />
       <CardFooter className={`justify-between before:bg-black/50 ${allMaps ? (isMapFinished ? "bg-green-600/45" : "bg-red-600/45") : "bg-black/40"} border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-2 ${isMobile ? "right-2 w-[50%]" : "w-[calc(100%_-_8px)]" } shadow-small ml-1 z-10`}>
