@@ -1,9 +1,11 @@
-import dynamic from 'next/dynamic'
+import dyn from 'next/dynamic'
+
 import { db } from '@/db/client';
 import { mapsTable } from "@/db/schema";
 import { asc } from "drizzle-orm";
 
-const Dashboard = dynamic(() => import('@/components/dashboard'), { ssr: false }) as any;
+const Dashboard = dyn(() => import('@/components/dashboard'), { ssr: false }) as any;
+
 export default async function MapsPage() {
   
   let mapsData = await db.query.mapsTable.findMany({
@@ -24,3 +26,5 @@ export default async function MapsPage() {
       </section>
   );
 }
+
+export const dynamic = "force-dynamic";
