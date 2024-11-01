@@ -11,6 +11,7 @@ header {
     max-width: 100% !important;
     width: 100% !important;
 }
+
 .mapCardImage {
     filter: blur(3px) brightness(0.3);
     image-rendering: crisp-edges;
