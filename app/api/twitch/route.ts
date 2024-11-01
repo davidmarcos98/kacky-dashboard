@@ -5,7 +5,7 @@ import 'dotenv/config';
 import { eq } from "drizzle-orm";
 import { usersTable, finishesTable, mapsTable } from "../../../db/schema";
 import { db } from "../../../db/client";
-import { genSaltSync, hashSync, compare } from 'bcrypt-ts';
+import { compare } from 'bcrypt-ts';
 
 export async function POST(req: NextRequest){
     const body = await req.json();

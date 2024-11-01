@@ -9,7 +9,6 @@ import { useMemo, useState } from "react";
 import { ChevronDown } from "./icons";
 
 async function isStreamerLive(channel: string): Promise<boolean> {
-    return false
     const response = await fetch(`/api/streamerLive?user=${channel}`);
     return (await response.json()).isLive;
 }
@@ -21,14 +20,14 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
     const router = useRouter();
     const [streamers, setStreamers] = useState<any>({})
     
-    const streamersLiveStatus = useMemo(() => {
+    const streamersLiveStatus: any = useMemo(async () => {
         let data: any = {}
         console.log(1)
         for (const player of players) {
             isStreamerLive(player.twitch).then((isLive) => {
                 data[player.username] = isLive;
                 if (players.indexOf(player) == players.length - 1) {
-                    setStreamers(streamersLiveStatus)
+                    setStreamers(data)
                 }
             })
         }
@@ -39,7 +38,9 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
         return <div className="live-indicator-block">
             
             <span className="live-indicator">
-                <i className="fa fa-circle blink" aria-hidden="true"></i><a className="z-50 underline" href={`https://twitch.tv/${streamer}`} target="_blank">Live</a>
+                <svg style={{display: "inline"}} width="12" height="12" fill="#eee" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"/></svg>
+                &nbsp;
+                <a className="z-50 underline" href={`https://twitch.tv/${streamer}`} target="_blank">Live</a>
             </span>
         </div>
     }
@@ -124,7 +125,7 @@ export default function Header({isMobile, players}: {isMobile: boolean, players:
                                         }}
                                     />
                                     &nbsp;
-                                    {streamersLiveStatus[player.username] &&
+                                    {streamers[player.username] &&
                                         liveElement(player.twitch)
                                     }
                                 </DropdownItem>

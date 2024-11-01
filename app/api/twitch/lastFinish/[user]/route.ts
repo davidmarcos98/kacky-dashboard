@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 
 import 'dotenv/config';
 import { eq, desc } from "drizzle-orm";
-import { finishesTable, mapsTable, usersTable } from "@/db/schema";
+import { finishesTable, usersTable } from "@/db/schema";
 import { db } from "@/db/client";
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ user: string }> }){

@@ -9,6 +9,7 @@
 		"lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
 	},
 	"dependencies": {
+		"@fontsource-variable/raleway": "^5.1.0",
 		"@internationalized/date": "^3.5.6",
 		"@nextui-org/button": "2.0.37",
 		"@nextui-org/card": "^2.0.34",
@@ -29,6 +30,7 @@
 		"axios": "^1.7.7",
 		"bcrypt-ts": "^5.0.2",
 		"clsx": "2.1.1",
+		"cssnano": "^7.0.6",
 		"dotenv": "^16.4.5",
 		"drizzle-orm": "^0.34.1",
 		"framer-motion": "~11.1.1",
@@ -36,6 +38,7 @@
 		"html-react-parser": "^5.1.18",
 		"next": "14.2.4",
 		"pg": "^8.13.0",
+		"postcss-import": "^16.1.0",
 		"postgres": "^3.4.4",
 		"react": "18.3.1",
 		"react-device-detect": "^2.2.3",

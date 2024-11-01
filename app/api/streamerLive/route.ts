@@ -1,11 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { NextResponse, NextRequest } from 'next/server';
-
-import 'dotenv/config';
-import { drizzle } from 'drizzle-orm/node-postgres'
-import { eq } from "drizzle-orm";
-import { mapsTable, usersTable, finishesTable } from "../../../db/schema";
-import { db } from "../../../db/client";
 import axios, { AxiosResponse } from "axios";
 
 

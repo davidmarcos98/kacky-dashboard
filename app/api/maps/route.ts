@@ -2,9 +2,8 @@
 import { NextResponse, NextRequest } from 'next/server';
 
 import 'dotenv/config';
-import { drizzle } from 'drizzle-orm/node-postgres'
 import { eq } from "drizzle-orm";
-import { mapsTable, usersTable, finishesTable } from "../../../db/schema";
+import { usersTable } from "../../../db/schema";
 import { db } from "../../../db/client";
 
 type Map = {

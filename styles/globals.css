@@ -1,9 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 
 * {
-    font-family: Raleway, sans-serif;
+    font-family: 'Raleway Variable', sans-serif;
 }
 
 header {

@@ -5,8 +5,9 @@ import {Providers} from "./providers";
 import Footer from "@/components/footer";
 import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic'
+import '@fontsource-variable/raleway';
 
-const Header = dynamic(() => import('@/components/navbar'), { ssr: true }) as any;
+const Header = dynamic(() => import('@/components/navbar'), { ssr: false }) as any;
 
 export default async function Document({ children }: { children: React.ReactNode }) {
 
@@ -25,10 +26,6 @@ export default async function Document({ children }: { children: React.ReactNode
   return (
     <html lang="en" className={`dark`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" />
         <script defer src="https://umami.socr.am/script.js" data-website-id="923640c3-4530-4e09-8e1f-dc43189fcbbd"></script>
       </head>
       <body
