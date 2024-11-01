@@ -64,7 +64,7 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
       </CardHeader>
       <Image
         className={`object-fit ${user ? "cardImage" : ""} ${isMobile || !allMaps ? '' : "mapCardImage"}`}
-        src={`/images/${parseInt(map.name) - 75}.jpg`}
+        src={`/images/${parseInt(map.name) - 75}.avif`}
         sizes="100,100"
         width={500}
         height={500}
