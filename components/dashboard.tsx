@@ -186,7 +186,7 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
                         <h1 className="text-2xl font-bold text-center w-full">No maps finished by {titleCase(user as string)}</h1>
                     )}
                     <div className={`grid ${all ? "sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-5" : (isMobile ? "grid-cols-1" : (maps.length == 1 ? "grid-cols-1" : maps.length % 2 == 0 ? "grid-cols-2" : "grid-cols-3"))} gap-5 justify-center pt-6 px-5 pb-20`}>
-                        {filteredMaps?.map((map: any) => (
+                        {filteredMaps?.map(async (map: any) => (
                             <MapCard mapPage={user ? false : true} allMaps={all} key={map.map ? map.map.name : map.name} map={map.map ? map.map : map} clip={map.clip} user={user || ''}/>
                         ))}
                     </div>

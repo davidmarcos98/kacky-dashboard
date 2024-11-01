@@ -70,6 +70,7 @@ export const MapCard = ({map, clip, mapPage, allMaps, user}: {map: Map, clip: st
         sizes="100,100"
         style={{ width: '100%', height: '100%' }}
         alt={`Map ${map.name} thumbnail`}
+        loading="eager"
       />
       <CardFooter className={`justify-between before:bg-black/50 ${allMaps ? (isMapFinished ? "bg-green-600/45" : "bg-red-600/45") : "bg-black/40"} border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-2 ${isMobile ? "right-2 w-[50%]" : "w-[calc(100%_-_8px)]" } shadow-small ml-1 z-10`}>
         <p className="flex items-center text-medium font-bold mr-auto ">
