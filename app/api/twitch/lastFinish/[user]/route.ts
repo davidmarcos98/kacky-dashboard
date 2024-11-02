@@ -5,6 +5,10 @@ import { eq, desc } from "drizzle-orm";
 import { finishesTable, usersTable } from "@/db/schema";
 import { db } from "@/db/client";
 
+function titleCase(word: string) {
+    return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
+}
+
 export async function GET(req: NextRequest, { params }: { params: Promise<{ user: string }> }){
     /* 
         /addcom !lastfin $(customapi https://kacky.socr.am/api/twitch/lastFinish/[USER])
@@ -36,7 +40,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ user
     }
 
     if (!(user.finishes.length > 0)) {
-        return new NextResponse(`${(await params).user} has not finished any map yet Sadge`);
+        return new NextResponse(`${titleCase((await params).user)} has not finished any map yet Sadge`);
     }
 
     return new NextResponse(`Last finish - map #${user.finishes.at(-1)?.map.name}: ${user.finishes.at(-1)?.clip} |  | https://kacky.socr.am/dashboard/maps/${user.username}`);

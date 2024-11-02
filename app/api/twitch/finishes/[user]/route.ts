@@ -5,6 +5,10 @@ import { eq } from "drizzle-orm";
 import { usersTable } from "@/db/schema";
 import { db } from "@/db/client";
 
+function titleCase(word: string) {
+    return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
+}
+
 export async function GET(req: NextRequest, { params }: { params: Promise<{ user: string }> }){
     /* 
         /addcom !fins $(customapi https://kacky.socr.am/api/twitch/finishes/[USER])
@@ -26,8 +30,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ user
     }
 
     if (!(user.finishes.length > 0)) {
-        return new NextResponse(`${(await params).user} has not finished any map yet Sadge`);
+        return new NextResponse(`${titleCase((await params).user)} has not finished any map yet Sadge`);
     }
 
-    return new NextResponse(`${(await params).user} has finished ${user.finishes.length} maps | https://kacky.socr.am/dashboard/maps/${user.username}`);
+    return new NextResponse(`${titleCase((await params).user)} has finished ${user.finishes.length} maps | https://kacky.socr.am/dashboard/maps/${user.username}`);
 }
