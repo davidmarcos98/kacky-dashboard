@@ -13,6 +13,7 @@ export default async function Document({ children }: { children: React.ReactNode
 
   /* const players = await db.query.usersTable.findMany(); */
   const players = [
+    {username: 'bren', twitch: 'bren_tm2'},
     {username: 'divinecarly', twitch: 'divinecarly'},
     {username: 'hefest', twitch: 'hefest'},
     {username: 'jxliano', twitch: 'jxliano'},
