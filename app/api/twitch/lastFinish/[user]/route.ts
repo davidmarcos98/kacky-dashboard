@@ -39,5 +39,5 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ user
         return new NextResponse(`${(await params).user} has not finished any map yet Sadge`);
     }
 
-    return new NextResponse(`Last finish - map #${user.finishes.at(-1)?.map.name}: ${user.finishes.at(-1)?.clip}`);
+    return new NextResponse(`Last finish - map #${user.finishes.at(-1)?.map.name}: ${user.finishes.at(-1)?.clip} |  | https://kacky.socr.am/dashboard/maps/${user.username}`);
 }
