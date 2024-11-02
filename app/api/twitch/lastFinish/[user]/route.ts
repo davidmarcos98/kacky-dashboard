@@ -26,7 +26,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ user
                     }
                 },
                 limit: 1,
-                orderBy: [desc(finishesTable.date)],
+                orderBy: [desc(finishesTable.id)],
             }
         }
     });
