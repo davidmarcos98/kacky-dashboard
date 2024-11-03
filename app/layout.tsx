@@ -15,6 +15,7 @@ export default async function Document({ children }: { children: React.ReactNode
   const players = [
     {username: 'bren', twitch: 'bren_tm2'},
     {username: 'divinecarly', twitch: 'divinecarly'},
+    {username: 'greep', twitch: 'greepthesheep'},
     {username: 'hefest', twitch: 'hefest'},
     {username: 'jxliano', twitch: 'jxliano'},
     {username: 'Lars_tm', twitch: 'lars_tm'},
