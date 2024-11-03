@@ -21,6 +21,7 @@ const Leaderboard = ({data}: {data?: any}) => {
       }
       <Table className={isMobile ? "w-[90%] pt-3" : "w-[70%] pt-6"}>
         <TableHeader>
+          <TableColumn>Ranking</TableColumn>
           <TableColumn>Player</TableColumn>
           <TableColumn>Fins</TableColumn>
           <TableColumn>Avg</TableColumn>
@@ -28,7 +29,8 @@ const Leaderboard = ({data}: {data?: any}) => {
         <TableBody>
           {data?.map((player: any, index: number) => (
             <TableRow key={index}>
-              <TableCell className="text-md">{parse(player.nick)}</TableCell>
+              <TableCell>{parseInt(player.index)}</TableCell>
+              <TableCell className="text-md font-bold">{parse(player.nick)}</TableCell>
               <TableCell>{player.fins}</TableCell>
               <TableCell>{player.avg}</TableCell>
             </TableRow>
