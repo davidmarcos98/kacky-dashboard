@@ -17,12 +17,17 @@ export async function GET(req: NextRequest){
 
     let nightbotUser = headers.get('nightbot-channel')
     let fossaUser = headers.get('x-fossabot-channeldisplayname')
-    let username = ''
+    let streamElementsUser = headers.get('x-streamelements-channel')
+    let username = 'nousername'
 
     if (nightbotUser) {
         username = nightbotUser.split('&')[0].split('=')[1]
-    } else {
+    } else if (fossaUser) {
         username = fossaUser?.toLocaleLowerCase() as string
+    } else if (streamElementsUser && streamElementsUser == "5a107acbb6a4d700017a11ce") {
+        username = "scrapie"
+    } else if (streamElementsUser && streamElementsUser == "631501c47dd2cc5d6452ff89") {
+        username = "socramdavid"
     }
 
     const user = await db.query.usersTable.findFirst({
@@ -36,7 +41,7 @@ export async function GET(req: NextRequest){
         return NextResponse.json({ error: "User or map not found" }, { status: 401 });
     }
     
-    if (!nightbotUser && fossaUser){
+    if (!nightbotUser && !streamElementsUser && fossaUser){
         const validateFossa = await fetch(headers.get('x-fossabot-validateurl') as string)
         
         if (validateFossa.status != 200) {
