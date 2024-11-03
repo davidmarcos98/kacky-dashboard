@@ -15,22 +15,33 @@ export async function GET(req: NextRequest){
     const headers = req.headers;
     const searchParams = req.nextUrl.searchParams;
 
+    let nightbotUser = headers.get('nightbot-channel')
+    let fossaUser = headers.get('x-fossabot-channeldisplayname')
+    let username = ''
+
+    if (nightbotUser) {
+        username = nightbotUser.split('&')[0].split('=')[1]
+    } else {
+        username = fossaUser?.toLocaleLowerCase() as string
+    }
+
     const user = await db.query.usersTable.findFirst({
-        where: eq(usersTable.twitch, headers.get('x-fossabot-channeldisplayname')?.toLowerCase() as string),
+        where: eq(usersTable.twitch, username),
     });
     const map = await db.query.mapsTable.findFirst({
         where: eq(mapsTable.name, searchParams.get("map") as string),
     });
 
-    console.log(headers, searchParams.get("clip"), searchParams.get("map"))
-    if (!user || !map || !headers.get('x-fossabot-validateurl')) {
+    if (!user || !map) {
         return NextResponse.json({ error: "User or map not found" }, { status: 401 });
     }
     
-    const validateFossa = await fetch(headers.get('x-fossabot-validateurl') as string)
-    
-    if (validateFossa.status != 200) {
-        return NextResponse.json({ error: "Could not validate fossabot token" }, { status: 401 });
+    if (!nightbotUser && fossaUser){
+        const validateFossa = await fetch(headers.get('x-fossabot-validateurl') as string)
+        
+        if (validateFossa.status != 200) {
+            return NextResponse.json({ error: "Could not validate fossabot token" }, { status: 401 });
+        }
     }
 
     const finish = await db.query.finishesTable.findFirst({
@@ -51,5 +62,5 @@ export async function GET(req: NextRequest){
         date: `${date?.year}-${date?.month}-${date?.day}` as string
     });
 
-    return new NextResponse(`Added new clip for ${headers.get('x-fossabot-channeldisplayname')} on map ${map?.name}`);
+    return new NextResponse(`Added new clip for ${username} on map ${map?.name}`);
 }
