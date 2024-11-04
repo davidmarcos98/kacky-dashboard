@@ -36,7 +36,7 @@ const MapView = ({map, clips, mapPage=false}: {map: Map, clips: Clip[], mapPage:
         <span className="text-transparent bg-clip-text bg-gradient-to-r to-neutral-600 from-stone-400">#{map.name} - by {map.author || "unknown"}</span>
       </h2>
       <div className={`${isMobile ? 'flex-inline' : 'flex'} w-full p-10`}>
-        <Card className={`${isMobile ? 'w-[100%]' : 'w-[50%]'}`} isPressable onPress={() => !mapPage ? onOpen() : console.log()}>
+        <Card className={`${isMobile ? 'w-[100%]' : 'w-[50%]'} h-fit`} isPressable onPress={() => !mapPage ? onOpen() : console.log()}>
           <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="5xl">
             <ModalContent>
               {(onClose) => (
