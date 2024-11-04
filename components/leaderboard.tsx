@@ -21,18 +21,18 @@ const Leaderboard = ({data}: {data?: any}) => {
       }
       <Table className={isMobile ? "w-[90%] pt-3" : "w-fit pt-6"}>
         <TableHeader>
-          <TableColumn className="px-5">Ranking</TableColumn>
-          <TableColumn className="px-5">Player</TableColumn>
-          <TableColumn className="px-5">Fins</TableColumn>
-          <TableColumn className="px-5">Avg</TableColumn>
+          <TableColumn className="px-4">Ranking</TableColumn>
+          <TableColumn className="px-4">Player</TableColumn>
+          <TableColumn className="px-4">Fins</TableColumn>
+          <TableColumn className="px-4">Avg</TableColumn>
         </TableHeader>
         <TableBody>
           {data?.map((player: any, index: number) => (
             <TableRow key={index}>
-              <TableCell className="w-fit px-5">{parseInt(player.index)}</TableCell>
-              <TableCell className="text-md font-bold max-w-[200px]">{parse(player.nick)}</TableCell>
-              <TableCell className="w-fit px-5">{player.fins}</TableCell>
-              <TableCell className="w-fit px-5">{player.avg}</TableCell>
+              <TableCell className="w-fit px-4">{parseInt(player.index)}</TableCell>
+              <TableCell className={`text-md font-bold ${isMobile ? "max-w-[150px]" : "max-w-[200px]"}`}>{parse(player.nick)}</TableCell>
+              <TableCell className="w-fit px-4">{player.fins}</TableCell>
+              <TableCell className="w-fit px-4">{player.avg}</TableCell>
             </TableRow>
           ))}
         </TableBody>
