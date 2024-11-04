@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic'
 import '@fontsource-variable/raleway';
+import SnippetComp from "@/components/snippet";
 
 const Header = dynamic(() => import('@/components/navbar'), { ssr: true }) as any;
 
@@ -40,6 +41,7 @@ export default async function Document({ children }: { children: React.ReactNode
         )}
       >
         <Header isMobile={isMobile} players={players} />
+        <SnippetComp isMobile={false}/>
         <Providers>
             {children}
         </Providers>
