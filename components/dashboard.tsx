@@ -143,7 +143,7 @@ const Dashboard = ({maps, user, all=false}: {maps: any, user?: string, all?: boo
         <>
             {(isMobile || user) &&
                 <h2 className={`text-center text-gray-900 text-3xl font-extrabold md:text-5xl lg:text-6xl ${isMobile ? 'pt-3' : 'pt-0'} w-full`}>
-                    <span className={`text-transparent bg-clip-text bg-gradient-to-r ${user ? "to-stone-400 from-neutral-500" : "to-indigo-600 from-violet-400"}`}>Maps {user ? ` finished by ${titleCase(user)}` : ""}</span>
+                    <span className={`text-transparent bg-clip-text bg-gradient-to-r ${user ? "to-stone-400 from-neutral-500" : "to-indigo-600 from-violet-400"}`}>{user ? `Finishes by ${titleCase(user)} [${maps.length}/75]` : "Maps"}</span>
                 </h2>
             }
             {!all ? 
