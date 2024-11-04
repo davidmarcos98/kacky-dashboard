@@ -14,18 +14,11 @@ header {
 
 
 .mapCardImage {
-    filter: blur(3px);
     image-rendering: crisp-edges;
     -webkit-animation: 0.3s linear forwards unreveal;
     -moz-animation: 0.3s linear forwards unreveal;
     -o-animation: 0.3s linear forwards unreveal;
     animation: 0.3s linear forwards unreveal;
-}
-.mapCardImage.preload {
-    -webkit-animation: none;
-    -moz-animation: none;
-    -o-animation: none;
-    animation: none;
 }
 .mapCardImage:hover{
     -webkit-animation: 0.3s linear forwards reveal;
@@ -51,16 +44,14 @@ div:has(.cardImage):not(:has(button)):after {
     font-weight: bolder;
 }
 
-@-webkit-keyframes reveal { from { filter:blur(3px); scale: 1; } to { filter:brightness(0.3); scale: 1.2; }  }
-@-moz-keyframes reveal { from { filter:blur(3px); scale: 1; } to { filter:brightness(0.3); scale: 1.2; }  }
-@-o-keyframes reveal { from { filter:blur(3px); scale: 1; } to { filter:brightness(0.3); scale: 1.2; }  }
-@keyframes reveal { from { filter:blur(3px); scale: 1; } to { filter:brightness(0.3); scale: 1.2; }  }
-@-webkit-keyframes unreveal { from { filter:brightness(0.3); scale: 1.2; } to { filter:blur(3px); scale: 1.0; }  }
-@-moz-keyframes unreveal { from { filter:brightness(0.3); scale: 1.2; } to { filter:blur(3px); scale: 1.0; }  }
-@-o-keyframes unreveal { from { filter:brightness(0.3); scale: 1.2; } to { filter:blur(3px); scale: 1.0; }  }
-@keyframes unreveal { from { filter:brightness(0.3); scale: 1.2; } to { filter:blur(3px); scale: 1.0; }  }
-
-
+@-webkit-keyframes reveal { from { scale: 1; } to { scale: 1.2; }  }
+@-moz-keyframes reveal { from { scale: 1; } to { scale: 1.2; }  }
+@-o-keyframes reveal { from { scale: 1; } to { scale: 1.2; }  }
+@keyframes reveal { from { scale: 1; } to { scale: 1.2; }  }
+@-webkit-keyframes unreveal { from { scale: 1.2; } to { scale: 1.0; }  }
+@-moz-keyframes unreveal { from { scale: 1.2; } to { scale: 1.0; }  }
+@-o-keyframes unreveal { from { scale: 1.2; } to { scale: 1.0; }  }
+@keyframes unreveal { from { scale: 1.2; } to { scale: 1.0; }  }
 
 .live-indicator {
     font-family: 'Roboto', sans-serif;
