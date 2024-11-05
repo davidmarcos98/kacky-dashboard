@@ -27,6 +27,7 @@ export default async function Document({ children }: { children: React.ReactNode
     {username: 'scrapie', twitch: 'scrapie'},
     {username: 'simplynick', twitch: 'simplynick'},
     {username: 'spammiej', twitch: 'spammiej'},
+    {username: 'stealthjt', twitch: 'stealthjt_'},
     {username: 'tekky', twitch: 'tekky'},
     {username: 'wirtual', twitch: 'wirtual'},
   ]
