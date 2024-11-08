@@ -3,7 +3,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/twitch/clip/:path(\\d{1,})',
+        source: '/api/twitch/clip/:path(\\d{3})',
         destination: '/api/twitch/clip/:path',
       },
       {
