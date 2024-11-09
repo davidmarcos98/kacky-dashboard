@@ -49,8 +49,8 @@ export default function About() {
         </h4>
         <h3 className="font-extrabold">1. Get a clip for a specific map</h3>
         <h2 className="italic" style={{ marginTop: "-10px"}}>Usage: !clip 349 - returns clip for map 349, if exists</h2>
-        <Snippet color='danger' symbol="#" className="w-fit command">!addcom !clip $(customapi https://kacky.socr.am/api/twitch/clip/$(1))</Snippet>
-        <Snippet color='success' symbol="#" className="w-fit command">!command add !clip $(customapi.https://kacky.socr.am/api/twitch/clip/$(1))</Snippet>
+        <Snippet color='danger' symbol="#" className="w-fit command">!addcom !clip $(customapi https://kacky.socr.am/api/twitch/clip/$(pathescape $(1)))</Snippet>
+        <Snippet color='success' symbol="#" className="w-fit command">!command add !clip $(customapi.https://kacky.socr.am/api/twitch/clip/$(urlencode $(1)))</Snippet>
         <h3 className="font-extrabold">2. Get last finish for user</h3>
         <h2 style={{ marginTop: "-10px"}}>⚠️&nbsp; Replace {'<USER>'} with the username used in the dashboard url</h2>
         <Snippet color='danger' symbol="#" className="w-fit command">{'!addcom !lastfin $(customapi https://kacky.socr.am/api/twitch/lastFinish/<USER>)'}</Snippet>
