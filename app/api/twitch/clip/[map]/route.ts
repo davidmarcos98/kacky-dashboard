@@ -35,7 +35,9 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ map:
         const finish = await db.query.finishesTable.findFirst({
             where: and(eq(finishesTable.mapId, map.id), eq(finishesTable.userId, user.id)),
         })
-        return new NextResponse(`Clip for #${(await params).map}: ${finish?.clip}`);
+        if (finish) {
+            return new NextResponse(`Clip for #${(await params).map}: ${finish?.clip}`);
+        }
     }
 
     if (!map || !(map.finishes.length > 0)) {
