@@ -15,7 +15,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ user
     /addcom !fins $(customapi https://kacky.socr.am/api/twitch/finishes/[USER])
     */
     let maps = [...Array(75)].map((_, i) => 301 + i * 1);
-   
+    const searchParams = req.nextUrl.searchParams;
+
     const user = await db.query.usersTable.findFirst({
         where: eq(usersTable.username, (await params).user as string),
         with: {
@@ -40,6 +41,10 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ user
     
     for (let fin of user.finishes) {
         maps.splice(maps.indexOf(parseInt(fin.map.name)), 1);
+    }
+
+    if (searchParams.get('raw')) {
+        return new NextResponse(`${maps.join(", ")}`);
     }
     return new NextResponse(`Maps left: ${maps.join(", ")}`);
 }
