@@ -12,6 +12,8 @@ export async function GET(req: NextRequest){
         !addcom !lastfin $(customapi https://kacky.socr.am/api/twitch/addFinish?map=$(1)&clip=$(2))
     */
 
+    console.log(req)
+
     const headers = req.headers;
     const searchParams = req.nextUrl.searchParams;
 

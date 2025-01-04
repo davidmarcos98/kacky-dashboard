@@ -10,6 +10,10 @@ const nextConfig = {
         source: '/api/twitch/clip/:path*',
         destination: '/api/twitch/clip',
       },
+      {
+        source: '/api/twitch/clip/\.\./:path*',
+        destination: '/api/twitch/clip',
+      },
     ]
   },
   reactStrictMode: false,

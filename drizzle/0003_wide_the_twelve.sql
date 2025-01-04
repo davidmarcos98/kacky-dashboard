@@ -1,0 +1,1 @@
+ALTER TABLE "random_maps" ALTER COLUMN "medal" SET DATA TYPE text;

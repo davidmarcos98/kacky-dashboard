@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { integer, pgTable, varchar, date } from "drizzle-orm/pg-core";
+import { text, integer, timestamp, pgEnum, pgTable, varchar, date, doublePrecision } from "drizzle-orm/pg-core";
 
 export const mapsTable = pgTable("maps", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -38,3 +38,18 @@ export const finishesRelation = relations(finishesTable, ({ one }) => ({
         references: [mapsTable.id],
     }),
 }))
+
+export const randomMapsTable = pgTable("random_maps", {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    mapId: integer(),
+    player: varchar({ length: 255 }).notNull(),
+    datetime: timestamp().notNull().defaultNow(),
+    medal: text(),
+    timeSpent: integer(),
+    mapper: text(),
+    styles: text(),
+    skipType: text(),
+    atTime: integer(),
+    finalTime: integer(),
+    currentMedalCount: integer(),
+})
