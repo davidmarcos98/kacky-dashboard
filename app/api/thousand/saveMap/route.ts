@@ -23,6 +23,11 @@ export async function POST(req: NextRequest){
     receivedStyles.forEach((element: string) => {
         styles += tags[parseInt(element) - 1] + ","
     });
+    const response = await fetch(
+        `https://trackmania.exchange/api/maps/get_map_info/id/${body.map.TrackID}`
+    );
+    const mapData = await response.json();
+
     let mapInfo = {
         mapId: body.map.TrackID,
         player: body.player,
@@ -35,7 +40,8 @@ export async function POST(req: NextRequest){
         finalTime: body.CurrentTimeOnMap,
         currentMedalCount: body.currentGoalMedals,
         pbBeforeFin: body.PreviousPB,
-        freeSkipCount: body.freeSkipsLeft
+        freeSkipCount: body.freeSkipsLeft,
+        mapTitle: mapData.name,
     }
     await db.insert(randomMapsTable).values(mapInfo);
     return NextResponse.json({})

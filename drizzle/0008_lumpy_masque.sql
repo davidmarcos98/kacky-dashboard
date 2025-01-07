@@ -1,0 +1,1 @@
+ALTER TABLE "random_maps" ADD COLUMN "mapTitle" text;

@@ -57,6 +57,13 @@
       "when": 1736274258588,
       "tag": "0007_orange_alice",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1736287873449,
+      "tag": "0008_lumpy_masque",
+      "breakpoints": true
     }
   ]
 }
