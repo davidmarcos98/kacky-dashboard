@@ -26,8 +26,6 @@ export async function POST(req: NextRequest){
         `https://trackmania.exchange/api/maps/get_map_info/id/${body.map.TrackID}`
     );
     const mapData = await response.json();
-    console.log(mapData)
-    console.log(mapData.name)
     let mapInfo = {
         mapId: body.map.TrackID,
         player: body.player,
@@ -41,7 +39,7 @@ export async function POST(req: NextRequest){
         currentMedalCount: body.currentGoalMedals,
         pbBeforeFin: body.PreviousPB,
         freeSkipCount: body.freeSkipsLeft,
-        mapTitle: mapData.name,
+        mapTitle: mapData.Name,
     }
     await db.insert(randomMapsTable).values(mapInfo);
     return NextResponse.json({})
