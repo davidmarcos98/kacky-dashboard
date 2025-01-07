@@ -9,7 +9,6 @@ const tags = ['Race', 'FullSpeed', 'Tech', 'RPG', 'LOL', 'Press Forward', 'Speed
 
 export async function POST(req: NextRequest){
     const body = await req.json();
-    console.log(body)
     let medal = "";
     if (body.GotGoalMedalOnCurrentMap) {
         medal = "at"
@@ -27,7 +26,8 @@ export async function POST(req: NextRequest){
         `https://trackmania.exchange/api/maps/get_map_info/id/${body.map.TrackID}`
     );
     const mapData = await response.json();
-
+    console.log(mapData)
+    console.log(mapData.name)
     let mapInfo = {
         mapId: body.map.TrackID,
         player: body.player,
