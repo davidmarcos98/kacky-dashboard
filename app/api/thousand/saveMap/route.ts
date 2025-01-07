@@ -30,10 +30,12 @@ export async function POST(req: NextRequest){
         timeSpent: body.TimeOnMap,
         mapper: body.map.Username,
         styles: styles,
-        skipType: body.ClickedOnSkip ? "skip" : "no skip",
+        skipType: medal == "skip" ? (body.previousFreeSkips != body.freeSkipsLeft ? "freeskip" : "brokenskip") : "noskip",
         atTime: body.map.AuthorTime,
         finalTime: body.CurrentTimeOnMap,
-        currentMedalCount: body.currentGoalMedals
+        currentMedalCount: body.currentGoalMedals,
+        pbBeforeFin: body.PreviousPB,
+        freeSkipCount: body.freeSkipsLeft
     }
     await db.insert(randomMapsTable).values(mapInfo);
     return NextResponse.json({})

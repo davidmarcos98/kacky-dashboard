@@ -52,4 +52,6 @@ export const randomMapsTable = pgTable("random_maps", {
     atTime: integer(),
     finalTime: integer(),
     currentMedalCount: integer(),
+    freeSkipCount: integer(),
+    pbBeforeFin: integer(),
 })
