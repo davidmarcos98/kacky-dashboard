@@ -30,7 +30,7 @@ export async function POST(req: NextRequest){
         timeSpent: body.TimeOnMap,
         mapper: body.map.Username,
         styles: styles,
-        skipType: medal == "skip" ? (body.previousFreeSkips != body.freeSkipsLeft ? "freeskip" : "brokenskip") : "noskip",
+        skipType: medal == "skip" ? (body.previousFreeSkips != body.freeSkipsLeft ? "freeskip" : (body.forceSwitch ? "forceSwitch" : "brokenskip")) : "noskip",
         atTime: body.map.AuthorTime,
         finalTime: body.CurrentTimeOnMap,
         currentMedalCount: body.currentGoalMedals,
