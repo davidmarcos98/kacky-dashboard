@@ -1,13 +1,42 @@
 "use client";
-import { Card, CardHeader, CardBody } from "@nextui-org/card";
+import { CardHeader } from "@nextui-org/card";
 import {Progress} from "@nextui-org/progress";
 import { useState } from "react";
+import {Image} from "@nextui-org/image";
 
 async function isStreamerLive(channel: string): Promise<boolean> {
   const response = await fetch(`https://static-cdn.jtvnw.net/previews-ttv/live_user_${channel}-320x180.jpg`);
   return (!response.url.includes("404"))
 }
-
+const medal = (medal: string, skipType: string) => {
+  if (medal == "at"){
+    return (
+      <Image
+        className="font-bold w-fit"
+        src="/at.png"
+        width={20}
+      />
+    )
+  } else if (medal == "gold"){
+      return (
+          <Image
+          className="font-bold w-fit"
+          src="/gold.png"
+          width={20}
+          />
+      )
+  } else if (medal == "skip"){
+      if (skipType == "brokenskip"){
+          return (
+              <p className="font-bold w-fit">BROKEN</p>
+          )
+      } else if (skipType == "freeskip"){
+          return (
+              <p className="font-bold w-fit">SKIP</p>
+          )
+      }
+  }
+}
 export default function PlayerHeader({data, player}: {data: any, player: string}) {
   const [scrapieLive, setScrapieLive] = useState(false);
   const [larsLive, setLarsLive] = useState(false);
@@ -21,6 +50,9 @@ export default function PlayerHeader({data, player}: {data: any, player: string}
 
   const playerCurrentCount = (player: string) => {
     return data.filter((item: { player: string; }) => item.player === player).at(-1)?.currentMedalCount || 0;
+  }
+  const playerCurrentGoldCount = (player: string) => {
+    return data.filter((item: { player: string; }) => item.player === player).at(-1)?.currentGoldCount || 0;
   }
 
   const liveIndicator = (player: string) => {
@@ -39,7 +71,7 @@ export default function PlayerHeader({data, player}: {data: any, player: string}
   return (
     <CardHeader className='flex inline-block'>
       <h4 className="text-4xl font-bold text-center">{player == "Larstm" ? "Lars" : "Scrapie"}{player == "Larstm" ? (larsLive ? liveIndicator("lars_tm") : '') : (scrapieLive ? liveIndicator("scrapie") : '')}</h4> 
-      <h3 className='text-l font-bold text-center mt-[4%]'>{playerCurrentCount(player)}/1000</h3>
+      <h3 className='text-xl font-bold text-center mt-[4%] flex inline items-center justify-center'>{medal("at", '')}&nbsp;{playerCurrentCount(player)}/1000&nbsp;&nbsp;{medal("gold", '')}&nbsp;{playerCurrentGoldCount(player)}</h3>
       <Progress size="lg" className="ml-[10%] mt-[2%] max-w-[80%]" color='success' value={playerCurrentCount(player)*100/1000} />
     </CardHeader>
   )
