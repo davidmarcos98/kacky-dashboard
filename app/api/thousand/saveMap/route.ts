@@ -40,6 +40,7 @@ export async function POST(req: NextRequest){
         pbBeforeFin: body.PreviousPB,
         freeSkipCount: body.freeSkipsLeft,
         mapTitle: mapData.Name,
+        currentGoldCount: body.currentBelowGoalMedals,
     }
     await db.insert(randomMapsTable).values(mapInfo);
     return NextResponse.json({})

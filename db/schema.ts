@@ -55,4 +55,5 @@ export const randomMapsTable = pgTable("random_maps", {
     freeSkipCount: integer(),
     pbBeforeFin: integer(),
     mapTitle: text(),
+    currentGoldCount: integer(),
 })

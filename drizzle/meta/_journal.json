@@ -64,6 +64,13 @@
       "when": 1736287873449,
       "tag": "0008_lumpy_masque",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1736300561700,
+      "tag": "0009_orange_shotgun",
+      "breakpoints": true
     }
   ]
 }
