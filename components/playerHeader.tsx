@@ -30,7 +30,7 @@ export default function PlayerHeader({data, player}: {data: any, player: string}
         <span className="live-indicator">
             <svg style={{display: "inline"}} width="12" height="12" fill="#eee" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"/></svg>
             &nbsp;
-            <a className="z-50 underline" href={`https://twitch.tv/lars_tm`} target="_blank">Live</a>
+            <a className="z-50 underline" href={`https://twitch.tv/${player}`} target="_blank">Live</a>
         </span>
       </>
     )

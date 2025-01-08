@@ -21,8 +21,7 @@ export default async function Home() {
           </span>
         </h1>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mx-4"> 
-
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mx-4 mb-16"> 
         <div>
           <Card>
             <PlayerHeader data={data} player="Scrapie98"/>
