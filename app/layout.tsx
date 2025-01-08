@@ -45,7 +45,6 @@ export default async function Document({ children }: { children: React.ReactNode
         )}
       >
         <Header isMobile={isMobile} players={players} />
-        <SnippetComp isMobile={false}/>
         <Providers>
             {children}
         </Providers>
