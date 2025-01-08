@@ -38,7 +38,7 @@ function formatTime(milliseconds: number): string {
       const totalSeconds = milliseconds / 1000;
       const minutes = Math.floor(totalSeconds / 60);
       const seconds = (totalSeconds % 60);
-      return `${minutes}m${seconds.toString().padStart(2, '0')}s`;
+      return `${minutes}m${(Math.round(seconds * 1000)/1000).toString().padStart(2, '0')}s`;
     }
   }
 function formatTimeSimple(milliseconds: number): string {
