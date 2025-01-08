@@ -23,7 +23,7 @@ export async function POST(req: NextRequest){
         styles += tags[parseInt(element) - 1] + ","
     });
     const response = await fetch(
-        `https://trackmania.exchange/api/maps/get_map_info/id/${body.map.TrackID}`
+        `https://map-monitor.xk.io/api/maps/${body.map.TrackID}`
     );
     const mapData = await response.json();
     let mapInfo = {
