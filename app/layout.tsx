@@ -44,7 +44,7 @@ export default async function Document({ children }: { children: React.ReactNode
           "min-h-screen bg-background font-sans antialiased flex flex-col font-body",
         )}
       >
-        <Header isMobile={isMobile} players={players} />
+        {/* <Header isMobile={isMobile} players={players} /> */}
         <Providers>
             {children}
         </Providers>

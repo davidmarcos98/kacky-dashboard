@@ -33,47 +33,56 @@ const medal = (medal: string, skipType: string) => {
 }
 function formatTime(milliseconds: number): string {
     if (milliseconds < 60000) {
-      return `${milliseconds / 1000}`;
+      return `${(milliseconds / 1000)}s`;
     } else {
       const totalSeconds = milliseconds / 1000;
       const minutes = Math.floor(totalSeconds / 60);
-      const seconds = totalSeconds % 60;
-      return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      const seconds = (totalSeconds % 60);
+      return `${minutes}m${seconds.toString().padStart(2, '0')}s`;
+    }
+  }
+function formatTimeSimple(milliseconds: number): string {
+    if (milliseconds < 60000) {
+      return `${Math.round(milliseconds / 1000)}s`;
+    } else {
+      const totalSeconds = milliseconds / 1000;
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = Math.round(totalSeconds % 60);
+      return `${minutes}m${seconds.toString().padStart(2, '0')}s`;
     }
   }
 export default function PlayerTable({data, player}: {data: any, player: string}) {
-{/* <li key={event.id} className='flex justify-left'>
-                {medal(event.medal as string, event.skipType as string)}
-                &nbsp;
-                <a
-                  href={`https://trackmania.exchange/maps/${event.mapId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className='underline font-bold'
-                >
-                  {event.mapTitle || "Unknown Map"}
-                </a>{" "}
-                -
-                {event.finalTime && event.finalTime > 0 ? event.finalTime : ""}
-              </li> */}
     return (
-        <Table aria-label="Example static collection table">
-            <TableHeader>
-            <TableColumn>Map</TableColumn>
-            <TableColumn>Final PB</TableColumn>
-            <TableColumn className="text-center">Medal</TableColumn>
+        <Table isStriped>
+            <TableHeader className="text-xl">
+                <TableColumn className="text-sm"> </TableColumn>
+                <TableColumn className="text-sm">Map</TableColumn>
+                <TableColumn className="text-sm">Author</TableColumn>
+                <TableColumn className="text-sm">Final PB</TableColumn>
+                <TableColumn className="text-sm">Time Spent</TableColumn>
+                <TableColumn className="text-sm text-center">Medal</TableColumn>
             </TableHeader>
             <TableBody>
-            {data
-                .filter((item: { player: string; }) => item.player === player)
-                .map((item: any, index: number) => (
-                    <TableRow key={index}>
-                        <TableCell>{item.mapTitle}</TableCell>
-                        <TableCell>{item.finalTime > 0 ? formatTime(item.finalTime) : ''}</TableCell>
-                        <TableCell className="flex justify-center">{medal(item.medal, item.skipType)}</TableCell>
-                    </TableRow>
-                          
-            ))}
+                <TableRow key={99999}>
+                    <TableCell className="font-bold text-xl absolute left-1/2 transform -translate-x-1/2">DAY 1</TableCell>
+                    <TableCell className="font-bold text-xl">‎‎</TableCell>
+                    <TableCell className="font-bold text-xl">‎‎</TableCell>
+                    <TableCell className="font-bold text-xl">‎‎</TableCell>
+                    <TableCell className="font-bold text-xl">‎‎</TableCell>
+                    <TableCell className="font-bold text-xl">‎‎</TableCell>
+                </TableRow>
+                {data
+                    .filter((item: { player: string; }) => item.player === player)
+                    .map((item: any, index: number) => (
+                        <TableRow key={index}>
+                            <TableCell className="font-bold">{index + 1}</TableCell>
+                            <TableCell className="font-bold underline"><a href={`https://trackmania.exchange/maps/${item.mapId}`} target="_blank">{item.mapTitle.substring(0, 100)}{item.mapTitle.length > 100 ? '...' : ''}&nbsp;</a></TableCell>
+                            <TableCell>{item.mapper}</TableCell>
+                            <TableCell> <span className="font-mono">{item.finalTime > 0 ? formatTime(item.finalTime) : ''}</span></TableCell>
+                            <TableCell> <span className="font-mono">{formatTimeSimple(item.timeSpent)}</span></TableCell>
+                            <TableCell className="flex justify-center">{medal(item.medal, item.skipType)}</TableCell>
+                        </TableRow>
+                ))}
             </TableBody>
       </Table>
   );

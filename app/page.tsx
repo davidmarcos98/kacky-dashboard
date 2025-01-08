@@ -4,53 +4,41 @@ import { asc } from "drizzle-orm";
 import { Card, CardHeader, CardBody } from "@nextui-org/card";
 import {Progress} from "@nextui-org/progress";
 import PlayerTable from "@/components/playerTable";
+import PlayerHeader from "@/components/playerHeader";
 
-export default async function Home() {
-  
+export default async function Home() {  
   let data = await db.query.randomMapsTable.findMany({
     orderBy: [asc(randomMapsTable.id)]
   });
-  console.log(data)
-
-  
-
-  
-
-  const playerCurrentCount = (player: string) => {
-    return data.filter((item) => item.player === player).at(-1)?.currentMedalCount
-  }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2"> 
-      <div>
-        <Card>
-          <CardHeader>
-            <h4 className="text-xl font-bold">David - {playerCurrentCount("socramdavid98")} ATs</h4> 
-          </CardHeader>
-          <CardBody>
-            <PlayerTable data={data} player="socramdavid98"/>
-          </CardBody>
-        </Card>
+    <div>
+      <div className='text-center my-16'>
+        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+          <span className="underline underline-offset-3 decoration-8 decoration-green-400 dark:decoration-green-600">
+            1000 AT
+          &nbsp;Challenge²
+          </span>
+        </h1>
       </div>
-      <div>
-        <Card>
-          <CardHeader>
-            <h4 className="text-xl font-bold">Player 2</h4> 
-          </CardHeader>
-          <CardBody>
-            {/* Player 2 stats and progress */}
-          </CardBody>
-        </Card>
-      </div>
-      <div className="col-span-2"> 
-        <Card>
-          <CardHeader>
-            <h4 className="text-xl font-bold">Recent Activity</h4> 
-          </CardHeader>
-          <CardBody>
-            {/* Display recent medal events */}
-          </CardBody>
-        </Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mx-4"> 
+
+        <div>
+          <Card>
+            <PlayerHeader data={data} player="Scrapie98"/>
+            <CardBody>
+              <PlayerTable data={data} player="Scrapie98"/>
+            </CardBody>
+          </Card>
+        </div>
+        <div>
+          <Card>
+          <PlayerHeader data={data} player="Larstm"/>
+            <CardBody>
+              <PlayerTable data={data} player="Larstm"/>
+            </CardBody>
+          </Card>
+        </div>
       </div>
     </div>
   );
