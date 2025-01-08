@@ -70,8 +70,8 @@ export default function PlayerHeader({data, player}: {data: any, player: string}
 
   return (
     <CardHeader className='flex inline-block'>
-      <h4 className="text-4xl font-bold text-center">{player == "Larstm" ? "Lars" : "Scrapie"}{player == "Larstm" ? (larsLive ? liveIndicator("lars_tm") : '') : (scrapieLive ? liveIndicator("scrapie") : '')}</h4> 
-      <h3 className='text-xl font-bold text-center mt-[4%] flex inline items-center justify-center'>{medal("at", '')}&nbsp;{playerCurrentCount(player)}/1000&nbsp;&nbsp;{medal("gold", '')}&nbsp;{playerCurrentGoldCount(player)}</h3>
+      <h4 className="text-4xl mt-[1%] font-bold text-center">{player == "Larstm" ? "Lars" : "Scrapie"}{player == "Larstm" ? (larsLive ? liveIndicator("lars_tm") : '') : (scrapieLive ? liveIndicator("scrapie") : '')}</h4> 
+      <h3 className='text-xl font-bold text-center mt-[2%] flex inline items-center justify-center'>{medal("at", '')}&nbsp;{playerCurrentCount(player)}/1000&nbsp;&nbsp;{medal("gold", '')}&nbsp;{playerCurrentGoldCount(player)}</h3>
       <Progress size="lg" className="ml-[10%] mt-[2%] max-w-[80%]" color='success' value={playerCurrentCount(player)*100/1000} />
     </CardHeader>
   )
