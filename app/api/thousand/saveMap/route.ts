@@ -39,7 +39,7 @@ export async function POST(req: NextRequest){
         currentMedalCount: body.currentGoalMedals,
         pbBeforeFin: body.PreviousPB,
         freeSkipCount: body.freeSkipsLeft,
-        mapTitle: mapData.Name,
+        mapTitle: mapData.Name || "Couldn't get map name",
         currentGoldCount: body.currentBelowGoalMedals,
     }
     await db.insert(randomMapsTable).values(mapInfo);
