@@ -16,3 +16,5 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ user
 
     return new NextResponse(`${scrapie ? `Scrapie has ${scrapie.currentMedalCount} ATs/${Math.max(scrapie.currentGoldCount || -1, 0)} golds` : 'Scrapie has not finished any map yet Sadge'} | ${lars ? `Lars has ${lars.currentMedalCount} ATs/${Math.max(lars.currentGoldCount || -1, 0)} golds` : 'Lars has not finished any map yet Sadge'}`);
 }
+
+export const revalidate = 0;
