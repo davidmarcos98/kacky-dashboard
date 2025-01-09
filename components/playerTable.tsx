@@ -1,32 +1,32 @@
 "use client"
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@nextui-org/table";
-import {Image} from "@nextui-org/image";
+import { Snippet } from "@nextui-org/snippet";
+import {useAsyncList} from "@react-stately/data";
 
+const stylesColors: any = {'Race': '', 'FullSpeed': '', 'Tech': '', 'RPG': '', 'LOL': '', 'Press Forward': '', 'SpeedTech': '', 'MultiLap': '', 'Offroad': '705100', 'Trial': '', 'ZrT': '1a6300', 'SpeedFun': '', 'Competitive': '', 'Ice': '05767d', 'Dirt': '5e2d09', 'Stunt': '', 'Reactor': 'd04500', 'Platform': '', 'Slow Motion': '004388', 'Bumper': 'aa0000', 'Fragile': '993366', 'Scenery': '', 'Kacky': '', 'Endurance': '', 'Mini': '', 'Remake': '', 'Mixed': '', 'Nascar': '', 'SpeedDrift': '', 'Minigame': '7e0e69', 'Obstacle': '', 'Transitional': '', 'Grass': '06a805', 'Backwards': '83aa00', 'EngineOff': 'f2384e', 'Signature': 'f1c438', 'Royal': 'ff0010', 'Water': '69dbff', 'Plastic': 'fffc00', 'Arena': '', 'Freestyle': '', 'Educational': '', 'Sausage': '', 'Bobsleigh': '', 'Pathfinding': '', 'FlagRush': '7a0000', 'Puzzle': '459873', 'Freeblocking': 'ffffff', 'Altered Nadeo': '3a3a3a', 'SnowCar': 'de4949', 'Wood': '814b00', 'Underwater': '03afff', 'Turtle': '6bb74e', 'RallyCar': 'ff8c00', 'MixedCar': '000000', 'Bugslide': '4b7933', 'Mudslide': '855925', 'Moving Items': 'e0dc82', 'DesertCar': 'f6ca4a', 'SpeedMapping': 'bd46b0', 'NoBrake': '', 'CruiseControl': '', 'NoSteer': '', 'RPG-Immersive': '', 'Pipes': '', 'Magnet': '', 'NoGrip': ''}
 const medal = (medal: string, skipType: string) => {
     if (medal == "at"){
       return (
-        <Image
-          className="font-bold w-fit"
+        <img
+          className="font-bold w-[20px] medal"
           src="/at.png"
-          width={20}
         />
       )
     } else if (medal == "gold"){
         return (
-            <Image
-            className="font-bold w-fit"
+            <img
+            className="font-bold w-[20px] medal"
             src="/gold.png"
-            width={20}
             />
         )
     } else if (medal == "skip"){
         if (skipType == "brokenskip"){
             return (
-                <p className="font-bold w-fit">BROKEN</p>
+                <p className="font-bold w-[100%] text-center">BROKEN</p>
             )
         } else if (skipType == "freeskip"){
             return (
-                <p className="font-bold w-fit">SKIP</p>
+                <p className="font-bold w-[100%] text-center">SKIP</p>
             )
         }
     }
@@ -51,23 +51,54 @@ function formatTimeSimple(milliseconds: number): string {
       return `${minutes}m${seconds.toString().padStart(2, '0')}s`;
     }
   }
-export default function PlayerTable({data, player}: {data: any, player: string}) {
+
+  function getStyleColor(style: string | number) {
+    return stylesColors[style] || '4f4f4f';
+  }
+  
+  export default function PlayerTable({data, player, full=true}: {data: any, player: string, full: boolean}) {
+    const playerUsedSkips = (player: string) => {
+        return data.filter((item: { player: string; }) => item.player === player).at(-1)?.freeSkipCount || 0;
+    }
+    let list = useAsyncList({
+        async load({signal}) {
+          return {
+            items: data.filter((item: { player: string; }) => item.player === player)
+          };
+        },
+        async sort({items, sortDescriptor}) {
+          return {
+            items: items.sort((a: any, b: any) => {
+              let first = a[sortDescriptor.column];
+              let second = b[sortDescriptor.column];
+              let cmp = (parseInt(first) || first) < (parseInt(second) || second) ? -1 : 1;
+    
+              if (sortDescriptor.direction === "descending") {
+                cmp *= -1;
+              }
+    
+              return cmp;
+            }),
+          };
+        },
+      });
+    
     return (
         <Table isStriped>
             <TableHeader className="text-xl">
-                <TableColumn className="text-sm"> </TableColumn>
-                <TableColumn className="text-sm">Map</TableColumn>
-                <TableColumn className="text-sm">Author</TableColumn>
-                <TableColumn className="text-sm">Final PB</TableColumn>
-                <TableColumn className="text-sm">Time Spent</TableColumn>
                 <TableColumn className="text-sm text-center">Medal</TableColumn>
+                <TableColumn className="text-sm">Map</TableColumn>
+                <TableColumn className="text-sm">Styles</TableColumn>
+                <TableColumn className="text-sm">Author</TableColumn>
+                {/* <TableColumn className="text-sm">Final PB</TableColumn> */}
+                <TableColumn className="text-sm">Time Spent</TableColumn>
             </TableHeader>
-            <TableBody>
-                <TableRow key={99999}>
-                    <TableCell className="font-bold text-xl absolute left-1/2 transform -translate-x-1/2">DAY 1</TableCell>
+            <TableBody items={list.items}>
+                <TableRow key={99999} className="">
+                    <TableCell className="font-bold text-xl w-[100%] pl-6 pr-5 absolute left-1/2 transform -translate-x-1/2 -mt-[3px] flex justify-between"><span className="pt-1">DAY 1</span> <Snippet hideCopyButton color="secondary" variant="flat" symbol="" style={{ backgroundColor: "rgba(159, 90, 253, 0.1)", border: "1px solid rgba(159, 90, 253, 1)"}}>{`${4 - playerUsedSkips(player)} Free Skips Used`}</Snippet></TableCell>
                     <TableCell className="font-bold text-xl">‎‎</TableCell>
                     <TableCell className="font-bold text-xl">‎‎</TableCell>
-                    <TableCell className="font-bold text-xl">‎‎</TableCell>
+                    {/* <TableCell className="font-bold text-xl">‎‎</TableCell> */}
                     <TableCell className="font-bold text-xl">‎‎</TableCell>
                     <TableCell className="font-bold text-xl">‎‎</TableCell>
                 </TableRow>
@@ -75,14 +106,24 @@ export default function PlayerTable({data, player}: {data: any, player: string})
                     .filter((item: { player: string; }) => item.player === player)
                     .map((item: any, index: number) => (
                         <TableRow key={index}>
-                            <TableCell className="font-bold">{index + 1}</TableCell>
+                            <TableCell className="">{medal(item.medal, item.skipType)}</TableCell>
                             <TableCell className="font-bold underline"><a href={`https://trackmania.exchange/maps/${item.mapId}`} target="_blank">{item.mapTitle.substring(0, 100)}{item.mapTitle.length > 100 ? '...' : ''}&nbsp;</a></TableCell>
+                            <TableCell>
+                                {full &&
+                                    item.styles.split(',').filter((style: string) => style != '').map((style: string, index: number) => (
+                                        <Snippet hideCopyButton variant="flat" symbol="" className="text-xs mr-2" style={{ backgroundColor: `#${getStyleColor(style)}50`, border: `1px solid #${getStyleColor(style)}`}}>{style}</Snippet>
+                                    ))
+                                }
+                                {!full &&
+                                    <Snippet hideCopyButton variant="flat" symbol="" className="text-xs" style={{ backgroundColor: `#${getStyleColor(item.styles.split(',')[0])}50`, border: `1px solid #${getStyleColor(item.styles.split(',')[0])}`}}>{item.styles.split(',')[0]}</Snippet>
+                                }
+                            </TableCell>
                             <TableCell>{item.mapper}</TableCell>
-                            <TableCell> <span className="font-mono">{item.finalTime > 0 ? formatTime(item.finalTime) : ''}</span></TableCell>
+                            {/* <TableCell> <span className="font-mono">{item.finalTime > 0 ? formatTime(item.finalTime) : ''}</span></TableCell> */}
                             <TableCell> <span className="font-mono">{formatTimeSimple(item.timeSpent)}</span></TableCell>
-                            <TableCell className="flex justify-center">{medal(item.medal, item.skipType)}</TableCell>
                         </TableRow>
                 ))}
+                
             </TableBody>
       </Table>
   );

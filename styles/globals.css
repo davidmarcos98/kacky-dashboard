@@ -12,6 +12,13 @@ header {
     width: 100% !important;
 }
 
+.medal {
+    margin: 0 auto;
+}
+
+thead > tr:last-child {
+    display: none;
+}
 
 .mapCardImage {
     image-rendering: crisp-edges;

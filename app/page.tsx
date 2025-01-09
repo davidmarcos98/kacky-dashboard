@@ -5,6 +5,7 @@ import { Card, CardHeader, CardBody } from "@nextui-org/card";
 import {Progress} from "@nextui-org/progress";
 import PlayerTable from "@/components/playerTable";
 import PlayerHeader from "@/components/playerHeader";
+import PlayerTabs from '@/components/playersTabs';
 
 export default async function Home() {  
   let data = await db.query.randomMapsTable.findMany({
@@ -21,22 +22,11 @@ export default async function Home() {
           </span>
         </h1>
       </div>
+      <PlayerTabs data={data}/>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mx-4 mb-16"> 
         <div>
-          <Card>
-            <PlayerHeader data={data} player="Scrapie98"/>
-            <CardBody>
-              <PlayerTable data={data} player="Scrapie98"/>
-            </CardBody>
-          </Card>
         </div>
         <div>
-          <Card>
-          <PlayerHeader data={data} player="Larstm"/>
-            <CardBody>
-              <PlayerTable data={data} player="Larstm"/>
-            </CardBody>
-          </Card>
         </div>
       </div>
     </div>
