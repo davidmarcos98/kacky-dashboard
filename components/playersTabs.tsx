@@ -12,21 +12,21 @@ async function isStreamerLive(channel: string): Promise<boolean> {
 }
 
 export default function PlayerTabs({data}: {data: any}) {
-  const [selectedKey, setSelectedKey] = useState('vs');
+  const [selectedKey, setSelectedKey] = useState('');
   isStreamerLive("lars_tm").then((isLive) => {
-    if (isLive && selectedKey == 'vs') {
+    if (isLive && selectedKey == '') {
       setSelectedKey("lars")
     }
   })
   isStreamerLive("scrapie").then((isLive) => {
-    if (isLive && selectedKey == 'vs') {
+    if (isLive && selectedKey == '') {
       setSelectedKey("scrapie")
     }
   })
 
 
   return (
-    <Tabs aria-label="Options" className="relative left-1/2 transform -translate-x-1/2" selectedKey={selectedKey} onSelectionChange={(key) => setSelectedKey(key as string)}>
+    <Tabs aria-label="Options" className="relative left-1/2 transform -translate-x-1/2" selectedKey={selectedKey || "vs"} onSelectionChange={(key) => setSelectedKey(key as string)}>
       <Tab key="scrapie" title="Scrapie" className="flex justify-center">
         <Card className="w-[80%]">
           <PlayerHeader data={data} player="Scrapie98"/>
