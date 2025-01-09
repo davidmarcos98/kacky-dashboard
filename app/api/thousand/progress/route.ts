@@ -3,13 +3,17 @@ import { NextResponse, NextRequest } from 'next/server';
 
 import 'dotenv/config';
 import { db } from "../../../../db/client";
+import { randomMapsTable } from "../../../../db/schema";
+import { asc } from 'drizzle-orm';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ user: string }> }){
     /* 
         /addcom !fins $(customapi https://kacky.socr.am/api/twitch/finishes/[USER])
     */
 
-    const data = await db.query.randomMapsTable.findMany({});
+    const data = await db.query.randomMapsTable.findMany({
+        orderBy: [asc(randomMapsTable.datetime)],
+    });
 
     let scrapie = (data.filter(item => item.player == "Scrapie98").at(-1))
     let lars = (data.filter(item => item.player == "Larstm").at(-1))

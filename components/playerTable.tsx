@@ -72,18 +72,6 @@ export const medalOptions = [
     {name: "Gold", uid: "gold"},
     {name: "Skip", uid: "skip"},
 ];
-const dayRow = (day: string) => {
-    return (
-        <TableRow key={99999} className="">
-            <TableCell className="font-bold text-xl w-[100%] pl-6 pr-5 absolute left-1/2 transform -translate-x-1/2 -mt-[3px] flex justify-between"><span className="pt-1">DAY 1</span> <Snippet hideCopyButton color="secondary" variant="flat" symbol="" style={{ backgroundColor: "rgba(159, 90, 253, 0.1)", border: "1px solid rgba(159, 90, 253, 1)"}}>{`${4 - playerUsedSkips(player)} Free Skips Used`}</Snippet></TableCell>
-            <TableCell className="font-bold text-xl">‎‎</TableCell>
-            <TableCell className="font-bold text-xl">‎‎</TableCell>
-            {/* <TableCell className="font-bold text-xl">‎‎</TableCell> */}
-            <TableCell className="font-bold text-xl">‎‎</TableCell>
-            <TableCell className="font-bold text-xl">‎‎</TableCell>
-        </TableRow>
-    )
-}
 export const ChevronDownIcon = ({strokeWidth = 1.5, ...otherProps}: IconSvgProps) => {
     return (
     <svg
@@ -113,6 +101,18 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
     const [dateOptions, setDateOptions] = useState<any[]>([]);
     const playerUsedSkips = (player: string) => {
         return data.filter((item: { player: string; }) => item.player === player).at(-1)?.freeSkipCount || 0;
+    }
+    const dayRow = (day: string) => {
+        return (
+            <TableRow key={99999} className="">
+                <TableCell className="font-bold text-xl w-[100%] pl-6 pr-5 absolute left-1/2 transform -translate-x-1/2 -mt-[3px] flex justify-between"><span className="pt-1">DAY 1</span> <Snippet hideCopyButton color="secondary" variant="flat" symbol="" style={{ backgroundColor: "rgba(159, 90, 253, 0.1)", border: "1px solid rgba(159, 90, 253, 1)"}}>{`${4 - playerUsedSkips(player)} Free Skips Used`}</Snippet></TableCell>
+                <TableCell className="font-bold text-xl">‎‎</TableCell>
+                <TableCell className="font-bold text-xl">‎‎</TableCell>
+                {/* <TableCell className="font-bold text-xl">‎‎</TableCell> */}
+                <TableCell className="font-bold text-xl">‎‎</TableCell>
+                <TableCell className="font-bold text-xl">‎‎</TableCell>
+            </TableRow>
+        )
     }
     function formatDate(date: any) {
         const overnight = date.getHours() < 5;
