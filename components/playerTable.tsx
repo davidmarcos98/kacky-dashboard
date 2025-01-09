@@ -71,8 +71,7 @@ function formatTimeSimple(milliseconds: number): string {
                 items: items.sort((a: any, b: any) => {
                     let first = a[sortDescriptor.column];
                     let second = b[sortDescriptor.column];
-                    console.log(first, second)
-                    let cmp = (/^\d+$/.test(first) ? parseInt(first) : first) < (/^\d+$/.test(first) ? parseInt(second) : second) ? -1 : 1;
+                    let cmp = (/^\d+$/.test(first) ? parseInt(first) : first.replace(" ", '')) < (/^\d+$/.test(first) ? parseInt(second) : second.replace(" ", '')) ? -1 : 1;
             
                     if (sortDescriptor.direction === "descending") {
                         cmp *= -1;
