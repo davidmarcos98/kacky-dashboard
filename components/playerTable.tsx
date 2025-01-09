@@ -68,61 +68,54 @@ function formatTimeSimple(milliseconds: number): string {
         },
         async sort({items, sortDescriptor}) {
           return {
-            items: items.sort((a: any, b: any) => {
-              let first = a[sortDescriptor.column];
-              let second = b[sortDescriptor.column];
-              let cmp = (parseInt(first) || first) < (parseInt(second) || second) ? -1 : 1;
+                items: items.sort((a: any, b: any) => {
+                    let first = a[sortDescriptor.column];
+                    let second = b[sortDescriptor.column];
+                    console.log(first, second)
+                    let cmp = (/^\d+$/.test(first) ? parseInt(first) : first) < (/^\d+$/.test(first) ? parseInt(second) : second) ? -1 : 1;
+            
+                    if (sortDescriptor.direction === "descending") {
+                        cmp *= -1;
+                    }
     
-              if (sortDescriptor.direction === "descending") {
-                cmp *= -1;
-              }
-    
-              return cmp;
-            }),
+                    return cmp;
+                }),
           };
         },
       });
     
     return (
-        <Table isStriped>
+        <Table isStriped 
+        sortDescriptor={list.sortDescriptor}
+        onSortChange={list.sort}>
             <TableHeader className="text-xl">
-                <TableColumn className="text-sm text-center">Medal</TableColumn>
-                <TableColumn className="text-sm">Map</TableColumn>
-                <TableColumn className="text-sm">Styles</TableColumn>
-                <TableColumn className="text-sm">Author</TableColumn>
+                <TableColumn key="medal" allowsSorting className="text-sm text-center">Medal</TableColumn>
+                <TableColumn key="mapTitle" allowsSorting className="text-sm">Map</TableColumn>
+                <TableColumn key="styles" allowsSorting className="text-sm">Styles</TableColumn>
+                <TableColumn key="mapper" allowsSorting className="text-sm">Author</TableColumn>
                 {/* <TableColumn className="text-sm">Final PB</TableColumn> */}
-                <TableColumn className="text-sm">Time Spent</TableColumn>
+                <TableColumn key="timeSpent" allowsSorting className="text-sm">Time Spent</TableColumn>
             </TableHeader>
             <TableBody items={list.items}>
-                <TableRow key={99999} className="">
-                    <TableCell className="font-bold text-xl w-[100%] pl-6 pr-5 absolute left-1/2 transform -translate-x-1/2 -mt-[3px] flex justify-between"><span className="pt-1">DAY 1</span> <Snippet hideCopyButton color="secondary" variant="flat" symbol="" style={{ backgroundColor: "rgba(159, 90, 253, 0.1)", border: "1px solid rgba(159, 90, 253, 1)"}}>{`${4 - playerUsedSkips(player)} Free Skips Used`}</Snippet></TableCell>
-                    <TableCell className="font-bold text-xl">‎‎</TableCell>
-                    <TableCell className="font-bold text-xl">‎‎</TableCell>
-                    {/* <TableCell className="font-bold text-xl">‎‎</TableCell> */}
-                    <TableCell className="font-bold text-xl">‎‎</TableCell>
-                    <TableCell className="font-bold text-xl">‎‎</TableCell>
-                </TableRow>
-                {data
-                    .filter((item: { player: string; }) => item.player === player)
-                    .map((item: any, index: number) => (
-                        <TableRow key={index}>
-                            <TableCell className="">{medal(item.medal, item.skipType)}</TableCell>
-                            <TableCell className="font-bold underline"><a href={`https://trackmania.exchange/maps/${item.mapId}`} target="_blank">{item.mapTitle.substring(0, 100)}{item.mapTitle.length > 100 ? '...' : ''}&nbsp;</a></TableCell>
-                            <TableCell>
-                                {full &&
-                                    item.styles.split(',').filter((style: string) => style != '').map((style: string, index: number) => (
-                                        <Snippet hideCopyButton variant="flat" symbol="" className="text-xs mr-2" style={{ backgroundColor: `#${getStyleColor(style)}50`, border: `1px solid #${getStyleColor(style)}`}}>{style}</Snippet>
-                                    ))
-                                }
-                                {!full &&
-                                    <Snippet hideCopyButton variant="flat" symbol="" className="text-xs" style={{ backgroundColor: `#${getStyleColor(item.styles.split(',')[0])}50`, border: `1px solid #${getStyleColor(item.styles.split(',')[0])}`}}>{item.styles.split(',')[0]}</Snippet>
-                                }
-                            </TableCell>
-                            <TableCell>{item.mapper}</TableCell>
-                            {/* <TableCell> <span className="font-mono">{item.finalTime > 0 ? formatTime(item.finalTime) : ''}</span></TableCell> */}
-                            <TableCell> <span className="font-mono">{formatTimeSimple(item.timeSpent)}</span></TableCell>
-                        </TableRow>
-                ))}
+                {(item: any) => (
+                    <TableRow key={item.mapId}>
+                        <TableCell className="">{medal(item.medal, item.skipType)}</TableCell>
+                        <TableCell className="font-bold underline"><a href={`https://trackmania.exchange/maps/${item.mapId}`} target="_blank">{item.mapTitle.substring(0, 100)}{item.mapTitle.length > 100 ? '...' : ''}&nbsp;</a></TableCell>
+                        <TableCell>
+                            {full &&
+                                item.styles.split(',').filter((style: string) => style != '').map((style: string, index: number) => (
+                                    <Snippet hideCopyButton variant="flat" symbol="" className="text-xs mr-2" style={{ backgroundColor: `#${getStyleColor(style)}50`, border: `1px solid #${getStyleColor(style)}`}}>{style}</Snippet>
+                                ))
+                            }
+                            {!full &&
+                                <Snippet hideCopyButton variant="flat" symbol="" className="text-xs" style={{ backgroundColor: `#${getStyleColor(item.styles.split(',')[0])}50`, border: `1px solid #${getStyleColor(item.styles.split(',')[0])}`}}>{item.styles.split(',')[0]}</Snippet>
+                            }
+                        </TableCell>
+                        <TableCell>{item.mapper}</TableCell>
+                        {/* <TableCell> <span className="font-mono">{item.finalTime > 0 ? formatTime(item.finalTime) : ''}</span></TableCell> */}
+                        <TableCell> <span className="font-mono">{formatTimeSimple(item.timeSpent)}</span></TableCell>
+                    </TableRow>
+                )}
                 
             </TableBody>
       </Table>
