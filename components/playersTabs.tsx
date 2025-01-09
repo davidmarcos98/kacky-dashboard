@@ -31,7 +31,7 @@ export default function PlayerTabs({data}: {data: any}) {
         <Card className="w-[80%]">
           <PlayerHeader data={data} player="Scrapie98"/>
           <CardBody>
-            <PlayerTable data={data} player="Scrapie98"/>
+            <PlayerTable data={data} player="Scrapie98" full={true}/>
           </CardBody>
         </Card>
       </Tab>
@@ -39,7 +39,7 @@ export default function PlayerTabs({data}: {data: any}) {
         <Card className="w-[80%]">
           <PlayerHeader data={data} player="Larstm"/>
           <CardBody>
-            <PlayerTable data={data} player="Larstm"/>
+            <PlayerTable data={data} player="Larstm" full={true}/>
           </CardBody>
         </Card>
       </Tab>
