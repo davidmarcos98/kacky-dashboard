@@ -110,14 +110,13 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
     }
 
     const dayRow = () => {
-        console.log(dateFilter)
         return (
             <div className="flex justify-center items-center gap-3">
                 <Snippet hideCopyButton color="secondary" variant="flat" symbol="" style={{ backgroundColor: "rgba(159, 90, 253, 0.1)", border: "1px solid rgba(159, 90, 253, 1)"}}>
-                    {`${playerUsedSkipsDate(player, dateFilter[0])} Free Skips Used Today`}
+                    {`${playerUsedSkipsDate(player, dateFilter[0])} Skips Used`}
                 </Snippet>
                 <Snippet hideCopyButton color="success" variant="flat" symbol="" style={{ backgroundColor: "rgba(16, 155, 4, 0.1)", border: "1px solid rgb(16, 155, 4)"}}>
-                    {`${playerATsDate(player, dateFilter[0])} ATs Today`}
+                    {`${playerATsDate(player, dateFilter[0])} ATs`}
                 </Snippet>
                 
             </div>
@@ -180,6 +179,7 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
         data.forEach((item: any) => {
             dates.add(formatDate(item.datetime))
         });
+        dates.add(formatDate(new Date()));
         setDateOptions(Array.from(dates).map((date) => ({name: date, uid: date})));
     }, [list.items])
     
@@ -211,7 +211,7 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
                     <Dropdown>
                         <DropdownTrigger className="hidden sm:flex">
                             <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat" className="font-thin">
-                                {dateFilter.length > 1 ? "Date" : (formatDate(new Date()) == dateFilter[0] ? "Today" : dateFilter[0])}
+                                {dateFilter.length > 1 ? "Date" : (formatDate(new Date()) == dateFilter[0] ? "Today" : "Day " + (dateOptions.indexOf(dateOptions.filter(item => item.name == dateFilter[0]).at(-1)) + 1))}
                             </Button>
                         </DropdownTrigger>
                         <DropdownMenu
@@ -224,9 +224,9 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
                                 setDateFilter(Array.from(selection));
                             }}
                         >
-                            {dateOptions.map((date) => (
+                            {dateOptions.map((date, index) => (
                                 <DropdownItem key={date.uid} className="capitalize">
-                                    {date.name}
+                                    {index == dateOptions.length - 1 ? "Today" : "Day " + (index + 1)}
                                 </DropdownItem>
                             ))}
                         </DropdownMenu>
