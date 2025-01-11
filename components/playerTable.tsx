@@ -99,8 +99,10 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
     const [medalFilter, setMedalFilter] = useState<Selection>("all");
     const [dateFilter, setDateFilter] = useState<any>([formatDate(new Date())]);
     const [dateOptions, setDateOptions] = useState<any[]>([]);
-    const playerUsedSkips = (player: string) => {
-        return data.filter((item: { player: string; }) => item.player === player).at(-1)?.freeSkipCount || 0;
+    const playerUsedSkipsDate = (player: string, date: string) => {
+        console.log(data.filter((item: { player: string; datetime: any; }) => item.player === player && formatDate(item.datetime) == date).at(-1))
+        let skipCount = data.filter((item: { player: string; datetime: any; }) => item.player === player && formatDate(item.datetime) == date).at(-1)?.freeSkipCount;
+        return skipCount != undefined ? 4 - skipCount : 0
     }
     const playerATsDate = (player: string, date: string) => {
         console.log(date)
@@ -108,19 +110,18 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
     }
 
     const dayRow = () => {
-        if (formatDate(new Date()) != dateFilter[0]) {
-            return (
-                <div className="flex justify-center items-center gap-3">
-                    <Snippet hideCopyButton color="secondary" variant="flat" symbol="" style={{ backgroundColor: "rgba(159, 90, 253, 0.1)", border: "1px solid rgba(159, 90, 253, 1)"}}>
-                        {`${4 - playerUsedSkips(player)} Free Skips Used Today`}
-                    </Snippet>
-                    <Snippet hideCopyButton color="success" variant="flat" symbol="" style={{ backgroundColor: "rgba(16, 155, 4, 0.1)", border: "1px solid rgb(16, 155, 4)"}}>
-                        {`${playerATsDate(player, formatDate(new Date(new Date().setDate(new Date().getDate()-1))))} ATs Today`}
-                    </Snippet>
-                    
-                </div>
-            )
-        }
+        console.log(dateFilter)
+        return (
+            <div className="flex justify-center items-center gap-3">
+                <Snippet hideCopyButton color="secondary" variant="flat" symbol="" style={{ backgroundColor: "rgba(159, 90, 253, 0.1)", border: "1px solid rgba(159, 90, 253, 1)"}}>
+                    {`${playerUsedSkipsDate(player, dateFilter[0])} Free Skips Used Today`}
+                </Snippet>
+                <Snippet hideCopyButton color="success" variant="flat" symbol="" style={{ backgroundColor: "rgba(16, 155, 4, 0.1)", border: "1px solid rgb(16, 155, 4)"}}>
+                    {`${playerATsDate(player, dateFilter[0])} ATs Today`}
+                </Snippet>
+                
+            </div>
+        )
     }
     function formatDate(date: any) {
         const overnight = date.getHours() < 5;
@@ -218,7 +219,7 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
                             aria-label="Table Columns"
                             closeOnSelect={false}
                             selectedKeys={dateFilter}
-                            selectionMode="multiple"
+                            selectionMode="single"
                             onSelectionChange={(selection) => {
                                 setDateFilter(Array.from(selection));
                             }}
