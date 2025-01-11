@@ -102,17 +102,25 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
     const playerUsedSkips = (player: string) => {
         return data.filter((item: { player: string; }) => item.player === player).at(-1)?.freeSkipCount || 0;
     }
-    const dayRow = (day: string) => {
-        return (
-            <TableRow key={99999} className="">
-                <TableCell className="font-bold text-xl w-[100%] pl-6 pr-5 absolute left-1/2 transform -translate-x-1/2 -mt-[3px] flex justify-between"><span className="pt-1">DAY 1</span> <Snippet hideCopyButton color="secondary" variant="flat" symbol="" style={{ backgroundColor: "rgba(159, 90, 253, 0.1)", border: "1px solid rgba(159, 90, 253, 1)"}}>{`${4 - playerUsedSkips(player)} Free Skips Used`}</Snippet></TableCell>
-                <TableCell className="font-bold text-xl">‎‎</TableCell>
-                <TableCell className="font-bold text-xl">‎‎</TableCell>
-                {/* <TableCell className="font-bold text-xl">‎‎</TableCell> */}
-                <TableCell className="font-bold text-xl">‎‎</TableCell>
-                <TableCell className="font-bold text-xl">‎‎</TableCell>
-            </TableRow>
-        )
+    const playerATsDate = (player: string, date: string) => {
+        console.log(date)
+        return data.filter((item: { player: string; datetime: any; medal: string; }) => item.player === player && formatDate(item.datetime) == date && item.medal == "at").length;
+    }
+
+    const dayRow = () => {
+        if (formatDate(new Date()) != dateFilter[0]) {
+            return (
+                <div className="flex justify-center items-center gap-3">
+                    <Snippet hideCopyButton color="secondary" variant="flat" symbol="" style={{ backgroundColor: "rgba(159, 90, 253, 0.1)", border: "1px solid rgba(159, 90, 253, 1)"}}>
+                        {`${4 - playerUsedSkips(player)} Free Skips Used Today`}
+                    </Snippet>
+                    <Snippet hideCopyButton color="success" variant="flat" symbol="" style={{ backgroundColor: "rgba(16, 155, 4, 0.1)", border: "1px solid rgb(16, 155, 4)"}}>
+                        {`${playerATsDate(player, formatDate(new Date(new Date().setDate(new Date().getDate()-1))))} ATs Today`}
+                    </Snippet>
+                    
+                </div>
+            )
+        }
     }
     function formatDate(date: any) {
         const overnight = date.getHours() < 5;
@@ -176,52 +184,55 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
     
     return (
         <>
-            <div className="flex justify-center">
-                <Dropdown>
-                    <DropdownTrigger className="hidden sm:flex">
-                        <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat" className="font-thin">
-                            Medal
-                        </Button>
-                    </DropdownTrigger>
-                    <DropdownMenu
-                        disallowEmptySelection
-                        aria-label="Table Columns"
-                        closeOnSelect={false}
-                        selectedKeys={medalFilter}
-                        selectionMode="multiple"
-                        onSelectionChange={setMedalFilter}
-                    >
-                        {medalOptions.map((medal) => (
-                            <DropdownItem key={medal.uid} className="capitalize">
-                                {medal.name}
-                            </DropdownItem>
-                        ))}
-                    </DropdownMenu>
-                </Dropdown>
-                &nbsp;
-                <Dropdown>
-                    <DropdownTrigger className="hidden sm:flex">
-                        <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat" className="font-thin">
-                            {dateFilter.length > 1 ? "Date" : (formatDate(new Date()) == dateFilter[0] ? "Today" : dateFilter[0])}
-                        </Button>
-                    </DropdownTrigger>
-                    <DropdownMenu
-                        disallowEmptySelection
-                        aria-label="Table Columns"
-                        closeOnSelect={false}
-                        selectedKeys={dateFilter}
-                        selectionMode="multiple"
-                        onSelectionChange={(selection) => {
-                            setDateFilter(Array.from(selection));
-                        }}
-                    >
-                        {dateOptions.map((date) => (
-                            <DropdownItem key={date.uid} className="capitalize">
-                                {date.name}
-                            </DropdownItem>
-                        ))}
-                    </DropdownMenu>
-                </Dropdown>
+            <div className="flex justify-between items-center gap-3 mx-4">
+                <div id="left" className="flex justify-center items-center gap-3">
+                    <Dropdown>
+                        <DropdownTrigger className="hidden sm:flex">
+                            <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat" className="font-thin">
+                                Medal
+                            </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu
+                            disallowEmptySelection
+                            aria-label="Table Columns"
+                            closeOnSelect={false}
+                            selectedKeys={medalFilter}
+                            selectionMode="multiple"
+                            onSelectionChange={setMedalFilter}
+                        >
+                            {medalOptions.map((medal) => (
+                                <DropdownItem key={medal.uid} className="capitalize">
+                                    {medal.name}
+                                </DropdownItem>
+                            ))}
+                        </DropdownMenu>
+                    </Dropdown>
+                    <Dropdown>
+                        <DropdownTrigger className="hidden sm:flex">
+                            <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat" className="font-thin">
+                                {dateFilter.length > 1 ? "Date" : (formatDate(new Date()) == dateFilter[0] ? "Today" : dateFilter[0])}
+                            </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu
+                            disallowEmptySelection
+                            aria-label="Table Columns"
+                            closeOnSelect={false}
+                            selectedKeys={dateFilter}
+                            selectionMode="multiple"
+                            onSelectionChange={(selection) => {
+                                setDateFilter(Array.from(selection));
+                            }}
+                        >
+                            {dateOptions.map((date) => (
+                                <DropdownItem key={date.uid} className="capitalize">
+                                    {date.name}
+                                </DropdownItem>
+                            ))}
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
+
+                {dayRow()}
             </div>
             <Table isStriped 
                 sortDescriptor={list.sortDescriptor}
