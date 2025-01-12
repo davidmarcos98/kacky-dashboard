@@ -100,18 +100,28 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
     const [dateFilter, setDateFilter] = useState<any>([formatDate(new Date())]);
     const [dateOptions, setDateOptions] = useState<any[]>([]);
     const playerUsedSkipsDate = (player: string, date: string) => {
-        console.log(data.filter((item: { player: string; datetime: any; }) => item.player === player && formatDate(item.datetime) == date).at(-1))
-        let skipCount = data.filter((item: { player: string; datetime: any; }) => item.player === player && formatDate(item.datetime) == date).at(-1)?.freeSkipCount;
+        let skipCount = data.filter((item: { player: string; datetime: any; }) => item.player === player && dateFilter.includes(formatDate(item.datetime))).at(-1)?.freeSkipCount;
         return skipCount != undefined ? 4 - skipCount : 0
     }
     const playerATsDate = (player: string, date: string) => {
-        console.log(date)
-        return data.filter((item: { player: string; datetime: any; medal: string; }) => item.player === player && formatDate(item.datetime) == date && item.medal == "at").length;
+        return data.filter((item: { player: string; datetime: any; medal: string; }) => item.player === player && dateFilter.includes(formatDate(item.datetime)) && item.medal == "at").length;
+    }
+    const playerAverageMapDurationDate = (player: string, date: string) => {
+        let total = 0
+        let items = data.filter((item: { player: string; datetime: any; medal: string; atTime: number; }) => item.player === player && dateFilter.includes(formatDate(item.datetime)) && item.atTime > 60000);
+        items.forEach((item: { atTime: number; }) => {
+            total += item.atTime;
+        });
+        console.log(items.length)
+        return formatTimeSimple(Math.round(total / items.length * 1000)/1000);
     }
 
     const dayRow = () => {
         return (
             <div className="flex justify-center items-center gap-3">
+                {/* <Snippet hideCopyButton color="danger" variant="flat" symbol="" style={{ backgroundColor: "rgba(245, 66, 128, 0.1)", border: "1px solid rgb(245, 66, 128)"}}>
+                    {`${playerAverageMapDurationDate(player, dateFilter[0])} AVG AT Time`}
+                </Snippet> */}
                 <Snippet hideCopyButton color="secondary" variant="flat" symbol="" style={{ backgroundColor: "rgba(159, 90, 253, 0.1)", border: "1px solid rgba(159, 90, 253, 1)"}}>
                     {`${playerUsedSkipsDate(player, dateFilter[0])} Skips Used`}
                 </Snippet>
@@ -219,7 +229,7 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
                             aria-label="Table Columns"
                             closeOnSelect={false}
                             selectedKeys={dateFilter}
-                            selectionMode="single"
+                            selectionMode="multiple"
                             onSelectionChange={(selection) => {
                                 setDateFilter(Array.from(selection));
                             }}
@@ -249,7 +259,7 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
                     </TableHeader>
                     <TableBody items={filteredItems}>
                         {(item: any) => (
-                            <TableRow key={item.mapId}>
+                            <TableRow key={item.id}>
                                 <TableCell>{list.items.indexOf(item) + 1}</TableCell>
                                 <TableCell>{medal(item.medal, item.skipType)}</TableCell>
                                 <TableCell className="font-bold underline"><a href={`https://trackmania.exchange/maps/${item.mapId}`} target="_blank">{item.mapTitle.substring(0, 100)}{item.mapTitle.length > 100 ? '...' : ''}&nbsp;</a></TableCell>
