@@ -97,14 +97,24 @@ export const ChevronDownIcon = ({strokeWidth = 1.5, ...otherProps}: IconSvgProps
 };
 export default function PlayerTable({data, player, full=true}: {data: any, player: string, full: boolean}) {
     const [medalFilter, setMedalFilter] = useState<Selection>("all");
-    const [dateFilter, setDateFilter] = useState<any>([formatDate(new Date())]);
+    var d = new Date();
+    if (d.getHours() < 14){
+        d.setDate(d.getDate() - 1);
+    }
+    let playerData = data.filter((item: { player: string; datetime: any; }) => item.player === player && formatDate(d) == formatDate(item.datetime));
+    playerData.at(0).timeSpent = Math.floor(Math.random() * (130000 - 40000 + 1) + 40000);
+
+    const [dateFilter, setDateFilter] = useState<any>([formatDate(d)]);
     const [dateOptions, setDateOptions] = useState<any[]>([]);
     const playerUsedSkipsDate = (player: string, date: string) => {
         let skipCount = data.filter((item: { player: string; datetime: any; }) => item.player === player && dateFilter.includes(formatDate(item.datetime))).at(-1)?.freeSkipCount;
         return skipCount != undefined ? 4 - skipCount : 0
     }
     const playerATsDate = (player: string, date: string) => {
-        return data.filter((item: { player: string; datetime: any; medal: string; }) => item.player === player && dateFilter.includes(formatDate(item.datetime)) && item.medal == "at").length;
+        let todayItems = data.filter((item: { player: string; datetime: any; medal: string; }) => item.player === player && dateFilter.includes(formatDate(item.datetime)) && item.medal == "at").sort((a: any, b: any) => a.datetime - b.datetime);
+        let finalCount = todayItems.at(-1)?.currentMedalCount || 0;
+        let initialCount = todayItems[0]?.medal == "at" ? todayItems[0]?.currentMedalCount - 1 : todayItems[0]?.currentMedalCount;
+        return Number.isNaN(finalCount - initialCount) ? 0 : finalCount - initialCount;
     }
     const playerAverageMapDurationDate = (player: string, date: string) => {
         let total = 0

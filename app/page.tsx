@@ -1,14 +1,12 @@
 import { db } from '@/db/client';
 import { randomMapsTable } from "@/db/schema";
 import { asc } from "drizzle-orm";
-import { Card, CardHeader, CardBody } from "@nextui-org/card";
-import {Progress} from "@nextui-org/progress";
-import PlayerTable from "@/components/playerTable";
-import PlayerHeader from "@/components/playerHeader";
 import PlayerTabs from '@/components/playersTabs';
+import { ne } from "drizzle-orm";
 
 export default async function Home() {  
   let data = await db.query.randomMapsTable.findMany({
+    where: ne(randomMapsTable.skipType, "forceSwitch"),
     orderBy: [asc(randomMapsTable.id)]
   });
 
