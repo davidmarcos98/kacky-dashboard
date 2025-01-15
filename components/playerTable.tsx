@@ -102,7 +102,9 @@ export default function PlayerTable({data, player, full=true}: {data: any, playe
         d.setDate(d.getDate() - 1);
     }
     let playerData = data.filter((item: { player: string; datetime: any; }) => item.player === player && formatDate(d) == formatDate(item.datetime));
-    playerData.at(0).timeSpent = Math.floor(Math.random() * (130000 - 40000 + 1) + 40000);
+    if (playerData.length > 0) {
+        playerData.at(0).timeSpent = Math.floor(Math.random() * (130000 - 40000 + 1) + 40000);
+    }
 
     const [dateFilter, setDateFilter] = useState<any>([formatDate(d)]);
     const [dateOptions, setDateOptions] = useState<any[]>([]);
