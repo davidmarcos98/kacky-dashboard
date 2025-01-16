@@ -3,11 +3,19 @@ import clsx from "clsx";
 import "@/styles/globals.css";
 import {Providers} from "./providers";
 import Footer from "@/components/footer";
-import { isMobile } from 'react-device-detect';
 import dynamic from 'next/dynamic'
 import '@fontsource-variable/raleway';
-import SnippetComp from "@/components/snippet";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import { Roboto } from 'next/font/google';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme';
 
+const roboto = Roboto({
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto',
+});
 const Header = dynamic(() => import('@/components/navbar'), { ssr: true }) as any;
 
 export default async function Document({ children }: { children: React.ReactNode }) {
@@ -46,7 +54,11 @@ export default async function Document({ children }: { children: React.ReactNode
       >
         {/* <Header isMobile={isMobile} players={players} /> */}
         <Providers>
-            {children}
+          <AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+              {children}
+            </ThemeProvider>
+          </AppRouterCacheProvider>
         </Providers>
         <Footer/>
       </body>
