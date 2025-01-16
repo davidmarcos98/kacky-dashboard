@@ -114,7 +114,7 @@ export default function PlayerHeader({data, player, showGraphs}: {data: any, pla
       <h3 className='text-xl font-bold text-center mt-[2%] flex inline items-center justify-center'>{medal("at", '')}&nbsp;{playerCurrentCount(player)}/1000&nbsp;&nbsp;{medal("gold", '')}&nbsp;{playerCurrentGoldCount(player)}</h3>
       <Progress size="lg" className="ml-[10%] mt-[2%] max-w-[80%]" color='success' value={playerCurrentCount(player)*100/1000} />
       { showGraphs && 
-        <div>
+        <div className="flex flex-col items-center">
           <h2 className="text-center mt-5 -mb-6 text-lg font-bold">AT Progression</h2>
           <div style={{ height: "400px", width: "100%" }} className="justify-center -mb-3">
             <LineChart
@@ -132,7 +132,7 @@ export default function PlayerHeader({data, player, showGraphs}: {data: any, pla
             />
           </div>
           <h2 className="text-center my-5 text-lg font-bold">Styles share</h2>
-          <div style={{ height: "250px", width: "100%" }} className="justify-center mb-3">
+          <div style={{ height: "250px", width: "60%", maxWidth: "30vw" }} className="flex justify-center mb-3">
             <PieChart
               series={[
                 {
