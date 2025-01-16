@@ -5,6 +5,7 @@ import { useState } from "react";
 import {Image} from "@nextui-org/image";
 import { LineChart } from '@mui/x-charts/LineChart';
 import { PieChart } from '@mui/x-charts/PieChart';
+import { BarChart } from '@mui/x-charts/BarChart';
 
 async function isStreamerLive(channel: string): Promise<boolean> {
   const response = await fetch(`https://static-cdn.jtvnw.net/previews-ttv/live_user_${channel}-320x180.jpg`);
@@ -64,6 +65,35 @@ export default function PlayerHeader({data, player, showGraphs}: {data: any, pla
     return items
   }
 
+  function formatDate(date: any) {
+    const overnight = date.getHours() < 5;
+    const year = date.getFullYear();
+    const month = String((overnight && date.getDate() == 1) ? date.getMonth() : date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+    const day = String(overnight ? date.getDate() - 1 : date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+  const playerAtsPerDay = (player: string) => {
+    let atsData: number[] = [];
+    let dates = new Set();
+    data.forEach((item: any) => {
+        dates.add(formatDate(item.datetime))
+    });
+    dates.add(formatDate(new Date()));
+    let dateOptions = Array.from(dates).map((date) => ({name: date, uid: date}));
+
+    dateOptions.forEach((dateOption) => {
+      atsData.push(playerATsDate(player, dateOption.name as string));
+    });
+
+    return {dates: dateOptions.map((item, index) => `Day ${index + 1}`).filter((item, index) => atsData[index] > 0), data: atsData.filter(a => a != 0)};
+  }
+  const playerATsDate = (player: string, date: string) => {
+    let todayItems = data.filter((item: { player: string; datetime: any; medal: string; }) => item.player === player && date == formatDate(item.datetime)).sort((a: any, b: any) => a.datetime - b.datetime);
+    let finalCount = todayItems.at(-1)?.currentMedalCount || 0;
+    let initialCount = todayItems[0]?.medal == "at" ? todayItems[0]?.currentMedalCount - 1 : todayItems[0]?.currentMedalCount;
+    return Number.isNaN(finalCount - initialCount) ? 0 : finalCount - initialCount;
+  }
+
   const playerCurrentCount = (player: string) => {
     return data.filter((item: { player: string; }) => item.player === player).at(-1)?.currentMedalCount || 0;
   }
@@ -108,6 +138,8 @@ export default function PlayerHeader({data, player, showGraphs}: {data: any, pla
   }
   let playerStylesForGraph = playerStyleStats(player);
   let playerItemsForGraph = playerAts(player);
+  let playerDateATsForGraph = playerAtsPerDay(player);
+  console.log(playerDateATsForGraph.dates)
   return (
     <CardHeader className='flex inline-block'>
       <h4 className="text-4xl mt-[1%] font-bold text-center">{player == "Larstm" ? "Lars" : "Scrapie"}{player == "Larstm" ? (larsLive ? liveIndicator("lars_tm") : '') : (scrapieLive ? liveIndicator("scrapie") : '')}</h4> 
@@ -141,6 +173,24 @@ export default function PlayerHeader({data, player, showGraphs}: {data: any, pla
               ]}
             />
           </div>
+          <h2 className="text-center mt-4 mb-0 text-lg font-bold">ATs per day</h2>
+          <div style={{ height: "250px", width: "100%" }} className="flex justify-center -mb-6">
+            <BarChart
+              xAxis={[{ scaleType: 'band', data: playerDateATsForGraph.dates }]}
+              yAxis={[{ max: 120 }]}
+              series={[{ data: playerDateATsForGraph.data }]}
+              barLabel="value"
+              colors={['#1D895A']}
+              sx={{
+                '& .MuiBarLabel-root': {
+                  fontWeight: 'bold',
+                  fontSize: '1.1rem',
+                },
+              }}
+              className="-mt-6"
+            />
+          </div>
+
         </div>
       }
     </CardHeader>
