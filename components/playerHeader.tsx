@@ -54,7 +54,7 @@ export default function PlayerHeader({data, player, showGraphs}: {data: any, pla
   })
 
   const playerAts = (player: string) => {
-    let items = data.filter((item: {medal: string; player: string; }) => item.player === player && item.medal === "at").sort((a: { datetime: number; }, b: { datetime: number; }) => a.datetime - b.datetime);
+    let items = data.filter((item: {medal: string; player: string; }) => item.player === player).sort((a: { datetime: number; }, b: { datetime: number; }) => a.datetime - b.datetime);
     items.forEach((element: { totalTime: any; timeSpent: any; }, index: number) => {
       if (index == 0){
         element.totalTime = element.timeSpent;
@@ -142,7 +142,7 @@ export default function PlayerHeader({data, player, showGraphs}: {data: any, pla
   console.log(playerDateATsForGraph.dates)
   return (
     <CardHeader className='flex inline-block'>
-      <h4 className="text-4xl mt-[1%] font-bold text-center">{player == "Larstm" ? "Lars (Got 1000 Faster)" : "Scrapie"}{player == "Larstm" ? (larsLive ? liveIndicator("lars_tm") : '') : (scrapieLive ? liveIndicator("scrapie") : '')}</h4> 
+      <h4 className="text-4xl mt-[1%] font-bold text-center">{player == "Larstm" ? "Lars (44h30m)" : "Scrapie (47h15m)"}{player == "Larstm" ? (larsLive ? liveIndicator("lars_tm") : '') : (scrapieLive ? liveIndicator("scrapie") : '')}</h4> 
       <h3 className='text-xl font-bold text-center mt-[2%] flex inline items-center justify-center'>{medal("at", '')}&nbsp;{playerCurrentCount(player)}/1000&nbsp;&nbsp;{medal("gold", '')}&nbsp;{playerCurrentGoldCount(player)}</h3>
       <Progress size="lg" className="ml-[10%] mt-[2%] max-w-[80%]" color='success' value={playerCurrentCount(player)*100/1000} />
       { showGraphs && 
