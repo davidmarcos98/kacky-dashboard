@@ -14,8 +14,8 @@ async function isStreamerLive(channel: string): Promise<boolean> {
 
 export default function PlayerTabs({data}: {data: any}) {
   const [showGraphs, setShowGraphs] = useState(false);
-  const [selectedKey, setSelectedKey] = useState('');
-  isStreamerLive("lars_tm").then((isLive) => {
+  const [selectedKey, setSelectedKey] = useState('vs');
+  /* isStreamerLive("lars_tm").then((isLive) => {
     if (isLive && selectedKey == '') {
       setSelectedKey("lars")
     }
@@ -24,7 +24,7 @@ export default function PlayerTabs({data}: {data: any}) {
     if (isLive && selectedKey == '') {
       setSelectedKey("scrapie")
     }
-  })
+  }) */
 
 
   return (
