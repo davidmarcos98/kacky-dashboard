@@ -7,7 +7,7 @@ import { ne } from "drizzle-orm";
 export default async function Home() {  
   let data = await db.query.randomMapsTable.findMany({
     where: ne(randomMapsTable.skipType, "forceSwitch"),
-    orderBy: [asc(randomMapsTable.id)]
+    orderBy: [asc(randomMapsTable.datetime)]
   });
 
   return (
