@@ -142,7 +142,7 @@ export default function PlayerHeader({data, player, showGraphs}: {data: any, pla
   console.log(playerDateATsForGraph.dates)
   return (
     <CardHeader className='flex inline-block'>
-      <h4 className="text-4xl mt-[1%] font-bold text-center">{player == "Larstm" ? "Lars" : "Scrapie"}{player == "Larstm" ? (larsLive ? liveIndicator("lars_tm") : '') : (scrapieLive ? liveIndicator("scrapie") : '')}</h4> 
+      <h4 className="text-4xl mt-[1%] font-bold text-center">{player == "Larstm" ? "Lars (Got 1000 Faster)" : "Scrapie"}{player == "Larstm" ? (larsLive ? liveIndicator("lars_tm") : '') : (scrapieLive ? liveIndicator("scrapie") : '')}</h4> 
       <h3 className='text-xl font-bold text-center mt-[2%] flex inline items-center justify-center'>{medal("at", '')}&nbsp;{playerCurrentCount(player)}/1000&nbsp;&nbsp;{medal("gold", '')}&nbsp;{playerCurrentGoldCount(player)}</h3>
       <Progress size="lg" className="ml-[10%] mt-[2%] max-w-[80%]" color='success' value={playerCurrentCount(player)*100/1000} />
       { showGraphs && 
